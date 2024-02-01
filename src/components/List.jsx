@@ -5,7 +5,7 @@ import styled from "styled-components";
 const StList = styled.div`
   border: 1px solid blue;
   width: 800px;
-  height: 300px;
+  height: 1500px;
 `;
 
 function List() {
@@ -13,17 +13,7 @@ function List() {
     <>
       <StList>
         List 영역입니다
-        <ul>
-          <li>
-            <Item />
-          </li>
-          <li>
-            <Item />
-          </li>
-          <li>
-            <Item />
-          </li>
-        </ul>
+        <Item />
       </StList>
     </>
   );
