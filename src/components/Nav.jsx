@@ -27,7 +27,7 @@ const StUl = styled.ul`
 //연예인들의 직업을 배열에 담는다.
 const celebrityList = ["singer", "actor", "comedian"];
 
-//직업을 넣으면 어느 분야의 연예인인지 함수를 만든다.
+//직업을 넣으면 어느 분야의 연예인인지 체크 후 직업을 리턴한다
 const celebrityJob = (job) => {
   switch (job) {
     case "singer":
