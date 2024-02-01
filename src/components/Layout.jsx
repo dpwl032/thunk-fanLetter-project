@@ -7,14 +7,23 @@ import Item from "./Item";
 
 function Layout() {
   return (
-    <div>
-      <h2>안녕하세요</h2>
-      <Header />
-      <Nav />
-      <Form />
-      <List />
-      <Item />
-    </div>
+    <>
+      <div
+        style={{
+          border: "2px solid red",
+          width: "1300px",
+          height: "270px",
+        }}
+      >
+        Layout 부분입니다
+        <div>
+          <Header />
+          <Nav />
+          <Form />
+          <List />
+        </div>
+      </div>
+    </>
   );
 }
 

@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Layout from "../components/Layout";
-import Detail from "../Pages/Detail";
+import Layout from "components/Layout";
+import Detail from "pages/Detail";
+import Home from "pages/Home";
 
 const Router = () => {
   return (
@@ -8,6 +9,7 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<Layout />} />
         <Route path="detail" element={<Detail />} />
+        <Route path="home" element={<Home />} />
       </Routes>
     </BrowserRouter>
   );
