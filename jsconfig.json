@@ -1,0 +1,8 @@
+//src 밑 모든 것들은 절대경로로!
+
+{
+	"compilerOptions": {
+		"baseUrl": "src"
+	},
+	"include": ["src"]
+}

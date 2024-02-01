@@ -1,15 +1,10 @@
 import logo from "./logo.svg";
 import "./App.css";
+import Layout from "./components/Layout";
+import Router from "./shared/Router";
 
 function App() {
-  return (
-    <>
-      branch props-drilling <br />
-      branch context
-      <br />
-      branch redux
-    </>
-  );
+  return <Router />;
 }
 
 export default App;
