@@ -17,12 +17,29 @@ const StUl = styled.ul`
   display: flex;
   align-items: center;
 
-  ${(props) => props.hoverItem}:hover {
+  ${(props) => props.$hoverItem}:hover {
     border-radius: 10px;
     color: white;
     background-color: red;
   }
 `;
+
+//연예인들의 직업을 배열에 담는다.
+const celebrityList = ["singer", "actor", "comedian"];
+
+//직업을 넣으면 어느 분야의 연예인인지 함수를 만든다.
+const celebrityJob = (job) => {
+  switch (job) {
+    case "singer":
+      return "가수";
+    case "actor":
+      return "배우";
+    case "comedian":
+      return "개그맨";
+    default:
+      return "연예인이 아닙니다";
+  }
+};
 
 const StButton = styled.button`
   border: 1px solid black;
@@ -37,15 +54,13 @@ function Nav() {
     <>
       <StNav>
         <StUl>
-          <li>
-            <StButton hoverItem="singer">가수</StButton>
-          </li>
-          <li>
-            <StButton hoverItem="actor">배우</StButton>
-          </li>
-          <li>
-            <StButton hoverItem="comedian">개그맨</StButton>
-          </li>
+          {celebrityList.map((job) => {
+            return (
+              <StButton key={job} $hoverItem={job}>
+                {celebrityJob(job)}
+              </StButton>
+            );
+          })}
         </StUl>
       </StNav>
     </>
