@@ -6,6 +6,8 @@ function App() {
     <>
       branch props-drilling <br />
       branch context
+      <br />
+      branch redux
     </>
   );
 }
