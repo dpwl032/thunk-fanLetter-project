@@ -7,7 +7,7 @@ function Item() {
       <div>
         {fakeDate.map((data) => {
           return (
-            <div>
+            <div key={data.id}>
               {data.nickname}
               <br />
               {data.createdAt}
