@@ -1,10 +1,15 @@
 import logo from "./logo.svg";
 import "./App.css";
-import Layout from "./components/Layout";
 import Router from "./shared/Router";
+import GlobalStyle from "components/GlobalStyle";
 
 function App() {
-  return <Router />;
+  return (
+    <>
+      <GlobalStyle />
+      <Router />
+    </>
+  );
 }
 
 export default App;

@@ -1,18 +1,17 @@
 import React from "react";
+import styled from "styled-components";
+
+const StHeader = styled.div`
+  border: 1px solid black;
+  height: 100px;
+  background-color: lightblue;
+  width: 800px;
+`;
 
 function Header() {
   return (
     <>
-      <div
-        style={{
-          border: "1px solid black",
-          width: "1200px",
-          height: "100px",
-          backgroundColor: "lightblue",
-        }}
-      >
-        헤더 입니다.
-      </div>
+      <StHeader>헤더 입니다.</StHeader>
     </>
   );
 }

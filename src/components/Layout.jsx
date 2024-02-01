@@ -4,17 +4,19 @@ import Nav from "./Nav";
 import Form from "./Form";
 import List from "./List";
 import Item from "./Item";
+import styled from "styled-components";
+
+const StLayout = styled.div`
+  width: 100%;
+  height: 270px;
+  border: 2px solid red;
+  background-color: pink;
+`;
 
 function Layout() {
   return (
     <>
-      <div
-        style={{
-          border: "2px solid red",
-          width: "1300px",
-          height: "270px",
-        }}
-      >
+      <StLayout>
         Layout 부분입니다
         <div>
           <Header />
@@ -22,7 +24,7 @@ function Layout() {
           <Form />
           <List />
         </div>
-      </div>
+      </StLayout>
     </>
   );
 }
