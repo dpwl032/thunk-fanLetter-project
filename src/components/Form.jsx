@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 
 const StForm = styled.div`
@@ -7,23 +7,71 @@ const StForm = styled.div`
   border: 1px solid black;
 `;
 
-function Form() {
+function Form({ onSubmitLetter }) {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const writedTo = e.target.writedTo.value;
+    const nickname = e.target.nickname.value;
+    const content = e.target.content.value;
+
+    if (!nickname || !content) {
+      alert("빈칸없이 내용을 입력해주세요!");
+    }
+
+    if (nickname.length >= 20) {
+      alert("20글자를 초과할 수 없습니다");
+    }
+
+    if (content.length >= 100) {
+      alert("100글자를 초과할 수 없습니다");
+    }
+
+    onSubmitLetter({
+      id: crypto.randomUUID(),
+      nickname,
+      writedTo,
+      content,
+    });
+
+    e.target.reset();
+  };
+
   return (
     <>
       <StForm>
         Form 영역입니다.
         <br />
-        <form>
+        <form onSubmit={handleSubmit}>
           <label>닉네임 :</label>
-          <input type="text" /> <br />
+          <input
+            name="nickname"
+            type="content"
+            placeholder="최대 20글자까지 작성할 수 있습니다."
+            style={{
+              width: "250px",
+              height: "20px",
+            }}
+          />
+          <br />
+          <br />
           <label>내용 :</label>
-          <input type="text" />
+          <input
+            name="content"
+            type="text"
+            placeholder="최대 100자까지 작성할 수 있습니다."
+            style={{
+              width: "300px",
+              height: "150px",
+            }}
+          />
+          <br />
           <br />
           누구에게 보내실건가요? <br />
-          <select name="entertainer" id="enter">
-            <option value="singer">가수</option>
-            <option value="actor">배우</option>
-            <option value="comedian">개그맨</option>
+          <select name="writedTo">
+            <option value="지젤">지젤</option>
+            <option value="카리나">카리나</option>
+            <option value="닝닝">닝닝</option>
+            <option value="윈터">윈터</option>
           </select>
           <button>팬래터 등록</button>
         </form>

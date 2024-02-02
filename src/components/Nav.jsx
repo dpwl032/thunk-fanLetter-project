@@ -107,8 +107,12 @@ function Nav() {
     return data.writedTo === name;
   });
 
-  console.log("test", filteredLetters);
+  // console.log("test", filteredLetters);
+  const onSubmitLetter = (nextLetter) => {
+    setLetters((prevLetter) => [nextLetter, ...prevLetter]);
+  };
 
+  console.log("Test", letters);
   return (
     <>
       <StNav>
@@ -129,7 +133,7 @@ function Nav() {
           })}
         </StUl>
       </StNav>
-      <Form />
+      <Form onSubmitLetter={onSubmitLetter} />
 
       {/* Item 컴포넌트부분 */}
       <div style={{ border: "1px solid black" }}>
