@@ -33,6 +33,12 @@ function LetterForm({ onSubmitLetter }) {
       content,
     });
 
+    // localStorage.setItem("letterDate", createdAt);
+    // localStorage.setItem("letterNickname", nickname);
+    // localStorage.setItem("letterContent", content);
+    // localStorage.setItem("letterId", id);
+    // localStorage.setItem("letterWriteTo", writedTo);
+
     e.target.reset();
   };
 

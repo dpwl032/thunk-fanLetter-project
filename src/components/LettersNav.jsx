@@ -108,8 +108,11 @@ function LettersNav() {
 
   const onSubmitLetter = (nextLetter) => {
     setLetters((prevLetter) => [nextLetter, ...prevLetter]);
+    console.log(nextLetter.nickname);
   };
 
+  const test = localStorage.setItem("letter", JSON.stringify(letters));
+  console.log(test);
   return (
     <>
       <StNav>
@@ -140,6 +143,7 @@ function LettersNav() {
               <StItemLi key={data.id}>
                 <Link
                   to={`/navi/${data.id}`}
+                  letters={letters}
                   style={{ textDecoration: "none", color: "black" }}
                 >
                   <LetterItems>
