@@ -1,4 +1,4 @@
-export const fakeDate = [
+export const fakeData = [
   {
     createdAt: "2023-11-03T02:07:09.423Z",
     nickname: "Dr. Clint Christiansen",

@@ -21,8 +21,8 @@ function Layout() {
         <div>
           <Header />
           <Nav />
-          <Form />
-          <List />
+          {/* <Form />
+          <List /> */}
         </div>
       </StLayout>
     </>

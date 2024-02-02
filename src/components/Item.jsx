@@ -1,6 +1,7 @@
 import React from "react";
-import { fakeDate } from "shared/DummyData";
+import { fakeData } from "shared/DummyData";
 import styled from "styled-components";
+import { useRef } from "react";
 
 const StItemUl = styled.ul`
   width: 800px;
@@ -33,21 +34,28 @@ const ProfileImg = styled.div`
 const LetterItem = styled.div`
   width: 70%;
 `;
-function Item() {
+
+//말줄임 표시 처리방법
+const LengthLimit = styled.p`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`;
+function Item(test) {
   return (
     <>
       <StItemUl>
-        {fakeDate.map((data) => {
+        {fakeData.map((data) => {
           return (
-            <StItemLi>
-              <LetterItems key={data.id}>
+            <StItemLi key={data.id}>
+              <LetterItems>
                 <ProfileImg>이미지</ProfileImg>
                 <LetterItem>
                   <p> {data.nickname}</p>
                   <br />
                   <p>{data.createdAt}</p>
                   <br />
-                  <p>{data.content}</p>
+                  <LengthLimit>{data.content}</LengthLimit>
                   <br />
                 </LetterItem>
               </LetterItems>
@@ -55,22 +63,6 @@ function Item() {
           );
         })}
       </StItemUl>
-
-      {/* <div>
-        {fakeDate.map((data) => {
-          return (
-            <div key={data.id}>
-              {data.nickname}
-              <br />
-              {data.createdAt}
-              <br />
-              {data.content}
-              <br />
-              <br />
-            </div>
-          );
-        })}
-      </div> */}
     </>
   );
 }
