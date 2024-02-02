@@ -1,10 +1,9 @@
 import React from "react";
-import Header from "./Header";
-import Nav from "./Nav";
-import Form from "./Form";
 import List from "./List";
 import Item from "./Item";
 import styled from "styled-components";
+import LettersNav from "./LettersNav";
+import LettersHeader from "./LettersHeader";
 
 const StLayout = styled.div`
   width: 100%;
@@ -13,14 +12,14 @@ const StLayout = styled.div`
   background-color: pink;
 `;
 
-function Layout() {
+function LettersLayout() {
   return (
     <>
       <StLayout>
         Layout 부분입니다
         <div>
-          <Header />
-          <Nav />
+          <LettersHeader />
+          <LettersNav />
           {/* <Form />
           <List /> */}
         </div>
@@ -29,4 +28,4 @@ function Layout() {
   );
 }
 
-export default Layout;
+export default LettersLayout;

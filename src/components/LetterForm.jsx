@@ -7,7 +7,7 @@ const StForm = styled.div`
   border: 1px solid black;
 `;
 
-function Form({ onSubmitLetter }) {
+function LetterForm({ onSubmitLetter }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const writedTo = e.target.writedTo.value;
@@ -80,4 +80,4 @@ function Form({ onSubmitLetter }) {
   );
 }
 
-export default Form;
+export default LetterForm;

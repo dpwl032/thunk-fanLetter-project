@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { fakeData } from "shared/DummyData";
-import Form from "./Form";
+import LetterForm from "components/LetterForm";
+import { Link } from "react-router-dom";
 
 const StNav = styled.div`
   height: 150px;
@@ -32,10 +33,10 @@ const StButton = styled.button`
     background-color: red;
   } */
 `;
-//연예인들의 직업을 배열에 담는다.
+//이름을 배열에 담는다.
 const celebrityList = ["지젤", "카리나", "윈터", "닝닝"];
 
-//직업을 넣으면 어느 분야의 연예인인지 체크 후 직업을 리턴한다
+//이름을 넣으면 체크 후 누군지 리턴한다
 const celebrityJob = (who) => {
   switch (who) {
     case "지젤":
@@ -92,14 +93,12 @@ const LengthLimit = styled.p`
   text-overflow: ellipsis;
 `;
 
-function Nav() {
+function LettersNav() {
   const [name, setName] = useState("카리나");
 
   const onclickHandler = (who) => {
     setName(who);
-    // console.log("누구세욘?", who);
   };
-  //console.log("나는", name);
 
   const [letters, setLetters] = useState([...fakeData]);
 
@@ -107,12 +106,10 @@ function Nav() {
     return data.writedTo === name;
   });
 
-  // console.log("test", filteredLetters);
   const onSubmitLetter = (nextLetter) => {
     setLetters((prevLetter) => [nextLetter, ...prevLetter]);
   };
 
-  console.log("Test", letters);
   return (
     <>
       <StNav>
@@ -133,7 +130,7 @@ function Nav() {
           })}
         </StUl>
       </StNav>
-      <Form onSubmitLetter={onSubmitLetter} />
+      <LetterForm onSubmitLetter={onSubmitLetter} />
 
       {/* Item 컴포넌트부분 */}
       <div style={{ border: "1px solid black" }}>
@@ -141,17 +138,22 @@ function Nav() {
           {filteredLetters.map((data) => {
             return (
               <StItemLi key={data.id}>
-                <LetterItems>
-                  <ProfileImg>이미지</ProfileImg>
-                  <LetterItem>
-                    <p> {data.nickname}</p>
-                    <br />
-                    <p>{data.createdAt}</p>
-                    <br />
-                    <LengthLimit>{data.content}</LengthLimit>
-                    <br />
-                  </LetterItem>
-                </LetterItems>
+                <Link
+                  to={`/navi/${data.id}`}
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  <LetterItems>
+                    <ProfileImg>이미지</ProfileImg>
+                    <LetterItem>
+                      <p> {data.nickname}</p>
+                      <br />
+                      <p>{data.createdAt}</p>
+                      <br />
+                      <LengthLimit>{data.content}</LengthLimit>
+                      <br />
+                    </LetterItem>
+                  </LetterItems>
+                </Link>
               </StItemLi>
             );
           })}
@@ -161,4 +163,4 @@ function Nav() {
   );
 }
 
-export default Nav;
+export default LettersNav;

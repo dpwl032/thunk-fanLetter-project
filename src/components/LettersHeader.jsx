@@ -8,7 +8,7 @@ const StHeader = styled.div`
   width: 800px;
 `;
 
-function Header() {
+function LettersHeader() {
   return (
     <>
       <StHeader>헤더 입니다.</StHeader>
@@ -16,4 +16,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default LettersHeader;

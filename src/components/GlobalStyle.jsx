@@ -7,9 +7,7 @@ body{
     flex-direction: column;
 }
 
-div{
-   
-}
+
 `;
 
 export default GlobalStyle;
