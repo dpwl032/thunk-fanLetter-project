@@ -45,7 +45,6 @@ const LengthLimit = styled.p`
   text-overflow: ellipsis;
 `;
 function Item({ name }) {
-  console.log("items", JSON.parse(localStorage.getItem("letters")));
   const letters = JSON.parse(localStorage.getItem("letters"));
 
   const filteredLetters = letters.filter((data) => {

@@ -108,39 +108,39 @@ function LettersNav() {
     setLetters((prevLetter) => [nextLetter, ...prevLetter]);
   };
 
-  const allLetters = localStorage.setItem("letters", JSON.stringify(letters));
-  const detailLetter = JSON.parse(localStorage.getItem("letters"));
+  const filteredLetters = letters.filter((data) => {
+    return data.writedTo === name;
+  });
+
+  // 초기화 수정중
+  // const detailLetter = JSON.parse(localStorage.getItem("letters"));
+  // const allLetters = localStorage.setItem("letters", JSON.stringify(letters));
+
+  // console.log("detailLetter", detailLetter);
 
   // useEffect(() => {
   //   // 업데이트 된 후에 출력
-  //   const finish = JSON.parse(localStorage.getItem("prev"));
-  //   // console.log("업데이트된 후", JSON.parse(localStorage.getItem("prev")));
+  //   const ahahah = localStorage.setItem(
+  //     "letters",
+  //     JSON.stringify(detailLetter)
+  //   );
+
+  //   console.log("업데이트된 후", letters);
+  //   console.log("자고싶다", ahahah);
+  //   console.log("-----------------");
+
   //   return () => {
   //     // 업데이트 되기 전에 출력
-  //     localStorage.setItem("prev", JSON.stringify(letters));
-  //     // console.log("업데이트 전", letters);
+  //     console.log("업데이트 전", letters);
+  //     const nowData = JSON.parse(localStorage.getItem("letters"));
+  //     console.log("현재데이터", nowData);
+  //     console.log("-----------------");
   //   };
-  // }, [letters]);
-  // const finish = JSON.parse(localStorage.getItem("prev"));
+  // }, [setLetters]);
 
-  // console.log("왜안되는데", filteredLetters);
-
-  ///////////////////////////
-
-  useEffect(() => {
-    // 업데이트 된 후에 출력
-
-    console.log("업데이트된 후", letters);
-    localStorage.setItem("letters", JSON.stringify(letters));
-
-    return () => {
-      // 업데이트 되기 전에 출력
-      console.log("업데이트 전", letters);
-    };
-  }, [setLetters]);
-
-  // const abc = JSON.parse(localStorage.getItem("new"));
-  // console.log("저장됐을까?", abc);
+  // // const filteredLetters = detailLetter.filter((data) => {
+  // //   return data.writedTo === name;
+  // // });
 
   return (
     <>
@@ -164,8 +164,8 @@ function LettersNav() {
       </StNav>
       <LetterForm onSubmitLetter={onSubmitLetter} />
       {/* Item 컴포넌트부분 */}
-      <Item name={name} />
-      {/* <div style={{ border: "1px solid black" }}>
+      {/* <Item name={name} /> */}
+      <div style={{ border: "1px solid black" }}>
         <StItemUl>
           {filteredLetters.map((data) => {
             return (
@@ -191,7 +191,7 @@ function LettersNav() {
             );
           })}
         </StItemUl>
-      </div> */}
+      </div>
     </>
   );
 }

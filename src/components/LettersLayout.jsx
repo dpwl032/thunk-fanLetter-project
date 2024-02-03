@@ -4,7 +4,6 @@ import Item from "./Item";
 import styled from "styled-components";
 import LettersNav from "./LettersNav";
 import LettersHeader from "./LettersHeader";
-import Main from "pages/Main";
 
 const StLayout = styled.div`
   width: 100%;
@@ -20,7 +19,6 @@ function LettersLayout() {
         Layout 부분입니다
         <div>
           <LettersHeader />
-          <Main />
           <LettersNav />
           {/* <Form />
           <List /> */}
