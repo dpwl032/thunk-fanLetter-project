@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 
 const StForm = styled.div`
@@ -8,40 +8,48 @@ const StForm = styled.div`
 `;
 
 function LetterForm({ onSubmitLetter }) {
+  const today = new Date();
+  const dateString = today.toLocaleDateString("ko-KR", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
   const handleSubmit = (e) => {
     e.preventDefault();
     const writedTo = e.target.writedTo.value;
     const nickname = e.target.nickname.value;
     const content = e.target.content.value;
 
+    const allLetters = localStorage.setItem(
+      "letters",
+      JSON.stringify([...nickname])
+    );
+
     if (!nickname || !content) {
       alert("빈칸없이 내용을 입력해주세요!");
+      return;
     }
 
     if (nickname.length >= 20) {
       alert("20글자를 초과할 수 없습니다");
+      nickname.current.focus();
+      return;
     }
 
     if (content.length >= 100) {
       alert("100글자를 초과할 수 없습니다");
+      return;
     }
 
     onSubmitLetter({
-      id: crypto.randomUUID(),
+      createdAt: dateString,
       nickname,
-      writedTo,
+      id: crypto.randomUUID(),
       content,
+      writedTo,
     });
-
-    // localStorage.setItem("letterDate", createdAt);
-    // localStorage.setItem("letterNickname", nickname);
-    // localStorage.setItem("letterContent", content);
-    // localStorage.setItem("letterId", id);
-    // localStorage.setItem("letterWriteTo", writedTo);
-
     e.target.reset();
   };
-
   return (
     <>
       <StForm>
@@ -61,7 +69,7 @@ function LetterForm({ onSubmitLetter }) {
           <br />
           <br />
           <label>내용 :</label>
-          <input
+          <textarea
             name="content"
             type="text"
             placeholder="최대 100자까지 작성할 수 있습니다."
@@ -74,8 +82,9 @@ function LetterForm({ onSubmitLetter }) {
           <br />
           누구에게 보내실건가요? <br />
           <select name="writedTo">
-            <option value="지젤">지젤</option>
             <option value="카리나">카리나</option>
+            <option value="지젤">지젤</option>
+
             <option value="닝닝">닝닝</option>
             <option value="윈터">윈터</option>
           </select>

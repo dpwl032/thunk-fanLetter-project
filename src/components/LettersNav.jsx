@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { fakeData } from "shared/DummyData";
 import LetterForm from "components/LetterForm";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const StNav = styled.div`
   height: 150px;
@@ -95,6 +95,7 @@ const LengthLimit = styled.p`
 
 function LettersNav() {
   const [name, setName] = useState("카리나");
+  // const [letters, setLetters] = useState([]);
 
   const onclickHandler = (who) => {
     setName(who);
@@ -102,17 +103,48 @@ function LettersNav() {
 
   const [letters, setLetters] = useState([...fakeData]);
 
-  const filteredLetters = letters.filter((data) => {
+  const onSubmitLetter = (nextLetter) => {
+    setLetters((prevLetter) => [nextLetter, ...prevLetter]);
+  };
+
+  const allLetters = localStorage.setItem("letters", JSON.stringify(letters));
+  const detailLetter = JSON.parse(localStorage.getItem("letters"));
+
+  // useEffect(() => {
+  //   // 업데이트 된 후에 출력
+  //   const finish = JSON.parse(localStorage.getItem("prev"));
+  //   // console.log("업데이트된 후", JSON.parse(localStorage.getItem("prev")));
+  //   return () => {
+  //     // 업데이트 되기 전에 출력
+  //     localStorage.setItem("prev", JSON.stringify(letters));
+  //     // console.log("업데이트 전", letters);
+  //   };
+  // }, [letters]);
+  // const finish = JSON.parse(localStorage.getItem("prev"));
+
+  // console.log("왜안되는데", filteredLetters);
+
+  ///////////////////////////
+
+  useEffect(() => {
+    // 업데이트 된 후에 출력
+
+    console.log("업데이트된 후", letters);
+    localStorage.setItem("new", JSON.stringify(letters));
+
+    return () => {
+      // 업데이트 되기 전에 출력
+      console.log("업데이트 전", letters);
+    };
+  }, [letters]);
+
+  const abc = JSON.parse(localStorage.getItem("new"));
+  console.log("저장됐을까?", abc);
+
+  const filteredLetters = abc.filter((data) => {
     return data.writedTo === name;
   });
 
-  const onSubmitLetter = (nextLetter) => {
-    setLetters((prevLetter) => [nextLetter, ...prevLetter]);
-    console.log(nextLetter.nickname);
-  };
-
-  const test = localStorage.setItem("letter", JSON.stringify(letters));
-  console.log(test);
   return (
     <>
       <StNav>
