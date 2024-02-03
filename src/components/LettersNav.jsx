@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { fakeData } from "shared/DummyData";
 import LetterForm from "components/LetterForm";
 import { Link, useLocation } from "react-router-dom";
+import Item from "./Item";
 
 const StNav = styled.div`
   height: 150px;
@@ -130,20 +131,16 @@ function LettersNav() {
     // 업데이트 된 후에 출력
 
     console.log("업데이트된 후", letters);
-    localStorage.setItem("new", JSON.stringify(letters));
+    localStorage.setItem("letters", JSON.stringify(letters));
 
     return () => {
       // 업데이트 되기 전에 출력
       console.log("업데이트 전", letters);
     };
-  }, [letters]);
+  }, [setLetters]);
 
-  const abc = JSON.parse(localStorage.getItem("new"));
-  console.log("저장됐을까?", abc);
-
-  const filteredLetters = abc.filter((data) => {
-    return data.writedTo === name;
-  });
+  // const abc = JSON.parse(localStorage.getItem("new"));
+  // console.log("저장됐을까?", abc);
 
   return (
     <>
@@ -166,9 +163,9 @@ function LettersNav() {
         </StUl>
       </StNav>
       <LetterForm onSubmitLetter={onSubmitLetter} />
-
       {/* Item 컴포넌트부분 */}
-      <div style={{ border: "1px solid black" }}>
+      <Item name={name} />
+      {/* <div style={{ border: "1px solid black" }}>
         <StItemUl>
           {filteredLetters.map((data) => {
             return (
@@ -194,7 +191,7 @@ function LettersNav() {
             );
           })}
         </StItemUl>
-      </div>
+      </div> */}
     </>
   );
 }

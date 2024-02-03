@@ -15,6 +15,17 @@ function Detail() {
     return letter.id === params.id;
   });
 
+  //삭제버튼
+  const deleteLetter = () => {
+    alert("삭제하시겠습니까?");
+    //detailLetter : 기존배열, deletedLetter : 삭제한 요소
+    const searhData = foundLetter.content;
+    const searchIndex = detailLetter.findIndex((e) => e.content === searhData);
+    const deletedLetter = detailLetter.splice(searchIndex, 1);
+    localStorage.setItem("letters", JSON.stringify(detailLetter));
+    console.log("로컬테스트", JSON.parse(localStorage.getItem("letters")));
+  };
+
   //수정버튼
   const modifyLetter = (e) => {
     setClick(!click);
@@ -22,30 +33,26 @@ function Detail() {
   const [click, setClick] = useState(false);
 
   //수정내용 state
-  const [content, setContent] = useState("");
+  const [changeContent, setChangeContent] = useState(foundLetter.content);
 
   const onChangeLetter = (e) => {
-    console.log("수정내용", content);
-    if (!content) {
+    let { avatar, content, createdAt, writedTo, id, nickname } = foundLetter;
+
+    if (changeContent === content) {
       alert("수정한 내용이 없습니다.");
-    } else {
-      alert("이대로 수정하시겠습니까?");
+      return;
     }
-  };
+    console.log("바꿀값", changeContent);
+    console.log("기존값", content);
 
-  const onChange = (e) => {
-    setContent(e.target.value);
-  };
-
-  const deleteLetter = () => {
-    alert("삭제하시겠습니까?");
-    //detailLetter : 기존배열, deletedLetter : 삭제한 요소
-    const searhData = foundLetter.content;
-    const searchIndex = detailLetter.findIndex((e) => e.content === searhData);
-    const deletedLetter = detailLetter.splice(searchIndex, 1);
-    console.log(deletedLetter);
-    localStorage.setItem("letters", JSON.stringify(detailLetter));
-    navigate("/");
+    const addLetter = {
+      createdAt,
+      writedTo,
+      id: crypto.randomUUID(),
+      nickname,
+      content: changeContent,
+      avatar,
+    };
   };
 
   return (
@@ -62,20 +69,28 @@ function Detail() {
           type="text"
           name="content"
           defaultValue={foundLetter.content}
-          onChange={onChange}
+          onChange={(e) => setChangeContent(e.target.value)}
         ></textarea>
       ) : (
         <p>{foundLetter.content}</p>
       )}
       <br />
       <br />
-      <button onClick={deleteLetter}>삭제하기</button>
-      <button onClick={modifyLetter}>수정하기</button>
+      {click ? "" : <button onClick={deleteLetter}>삭제하기</button>}
+      {click ? "" : <button onClick={modifyLetter}>수정하기</button>}
+
       <br />
       <br />
-      <button name="changeButton" onClick={onChangeLetter}>
-        수정완료
-      </button>
+      {click ? (
+        <button
+          name="changeButton"
+          onClick={(e) => onChangeLetter({ foundLetter })}
+        >
+          수정완료
+        </button>
+      ) : (
+        ""
+      )}
     </>
   );
 }
