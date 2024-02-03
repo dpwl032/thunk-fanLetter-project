@@ -1,30 +1,30 @@
 import React from "react";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
-
+import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import LettersNav from "components/LettersNav";
-import { useRef, useState } from "react";
-import styled from "styled-components";
+import { useState } from "react";
 
-function Detail(props) {
+function Detail() {
   const params = useParams();
   const navigate = useNavigate();
 
+  //로컬스토리지에 저장한 값 들고오기
   const detailLetter = JSON.parse(localStorage.getItem("letters"));
 
-  //넘겨오는 id와 fakeData에서 일치한 것만 보여주기
+  //그 값들 중에서 넘겨오는 id와  일치한 것만 보여주기
   const foundLetter = detailLetter.find((letter) => {
     return letter.id === params.id;
   });
 
+  //수정버튼
   const modifyLetter = (e) => {
     setClick(!click);
   };
-
   const [click, setClick] = useState(false);
+
+  //수정내용 state
   const [content, setContent] = useState("");
 
-  const onChangeText = (e) => {
+  const onChangeLetter = (e) => {
     console.log("수정내용", content);
     if (!content) {
       alert("수정한 내용이 없습니다.");
@@ -39,21 +39,22 @@ function Detail(props) {
 
   const deleteLetter = () => {
     alert("삭제하시겠습니까?");
-    console.log("기존배열", detailLetter);
-    const deletedLetter = detailLetter.splice(params.id, 1);
-    console.log("삭제된 배열", deletedLetter);
-    console.log("기존배열", detailLetter);
+    //detailLetter : 기존배열, deletedLetter : 삭제한 요소
+    const searhData = foundLetter.content;
+    const searchIndex = detailLetter.findIndex((e) => e.content === searhData);
+    const deletedLetter = detailLetter.splice(searchIndex, 1);
+    console.log(deletedLetter);
     localStorage.setItem("letters", JSON.stringify(detailLetter));
     navigate("/");
   };
 
   return (
     <>
-      <div>팬레터 하위페이지입니다.</div>
+      <div>팬레터 세부페이지입니다.</div>
       <br />
       <Link to="/">
         <button>홈으로가기</button>
-      </Link>{" "}
+      </Link>
       <p>{foundLetter.nickname}</p>
       <p>{foundLetter.createdAt}</p>
       {click ? (
@@ -72,7 +73,7 @@ function Detail(props) {
       <button onClick={modifyLetter}>수정하기</button>
       <br />
       <br />
-      <button name="changeButton" onClick={onChangeText}>
+      <button name="changeButton" onClick={onChangeLetter}>
         수정완료
       </button>
     </>
