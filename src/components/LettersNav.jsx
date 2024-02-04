@@ -113,8 +113,8 @@ function LettersNav() {
   });
 
   // 초기화 수정중
-  // const detailLetter = JSON.parse(localStorage.getItem("letters"));
-  // const allLetters = localStorage.setItem("letters", JSON.stringify(letters));
+  const detailLetter = JSON.parse(localStorage.getItem("letters"));
+  const allLetters = localStorage.setItem("letters", JSON.stringify(letters));
 
   // console.log("detailLetter", detailLetter);
 

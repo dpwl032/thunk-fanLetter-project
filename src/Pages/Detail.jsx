@@ -15,7 +15,7 @@ function Detail() {
     return letter.id === params.id;
   });
 
-  //삭제버튼
+  // 삭제버튼;
   const deleteLetter = () => {
     alert("삭제하시겠습니까?");
     //detailLetter : 기존배열, deletedLetter : 삭제한 요소
@@ -36,23 +36,20 @@ function Detail() {
   const [changeContent, setChangeContent] = useState(foundLetter.content);
 
   const onChangeLetter = (e) => {
-    let { avatar, content, createdAt, writedTo, id, nickname } = foundLetter;
+    let { content, id } = foundLetter;
 
     if (changeContent === content) {
       alert("수정한 내용이 없습니다.");
       return;
     }
-    console.log("바꿀값", changeContent);
-    console.log("기존값", content);
 
-    const addLetter = {
-      createdAt,
-      writedTo,
-      id: crypto.randomUUID(),
-      nickname,
-      content: changeContent,
-      avatar,
-    };
+    const resultLetter = JSON.parse(localStorage.getItem("letters"));
+    const searchData = resultLetter.id;
+    const searchIndex = detailLetter.findIndex((e) => e.id === id);
+
+    console.log("수정중", (resultLetter[searchIndex].content = changeContent));
+    console.log(resultLetter);
+    localStorage.setItem("letters", JSON.stringify(resultLetter));
   };
 
   return (
@@ -91,6 +88,9 @@ function Detail() {
       ) : (
         ""
       )}
+
+      <p>수정된 내용</p>
+      {changeContent}
     </>
   );
 }
