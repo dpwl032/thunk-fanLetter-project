@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import LettersNav from "./LettersNav";
 import LettersHeader from "./LettersHeader";
-import LetterProvider from "context/LettersContext";
 
 const StLayout = styled.div`
   width: 100%;
@@ -19,8 +18,6 @@ function LettersLayout() {
         <div>
           <LettersHeader />
           <LettersNav />
-          {/* <Form />
-          <List /> */}
         </div>
       </StLayout>
     </>

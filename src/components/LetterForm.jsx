@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { LettersContext } from "context/LettersContext";
+import { useContext } from "react";
 
 const StForm = styled.div`
   width: 800px;
@@ -6,49 +8,8 @@ const StForm = styled.div`
   border: 1px solid black;
 `;
 
-function LetterForm({ onSubmitLetter }) {
-  const today = new Date();
-  const dateString = today.toLocaleDateString("ko-KR", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const writedTo = e.target.writedTo.value;
-    const nickname = e.target.nickname.value;
-    const content = e.target.content.value;
-
-    // const allLetters = localStorage.setItem(
-    //   "letters",
-    //   JSON.stringify([...nickname])
-    // );
-
-    if (!nickname || !content) {
-      alert("빈칸없이 내용을 입력해주세요!");
-      return;
-    }
-
-    if (nickname.length >= 20) {
-      alert("20글자를 초과할 수 없습니다");
-      nickname.current.focus();
-      return;
-    }
-
-    if (content.length >= 100) {
-      alert("100글자를 초과할 수 없습니다");
-      return;
-    }
-
-    onSubmitLetter({
-      createdAt: dateString,
-      nickname,
-      id: crypto.randomUUID(),
-      content,
-      writedTo,
-    });
-    e.target.reset();
-  };
+function LetterForm() {
+  const { handleSubmit, today, dateString } = useContext(LettersContext);
 
   return (
     <>

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { LettersContext } from "context/LettersContext";
 
 const StItemUl = styled.ul`
   width: 800px;
@@ -40,18 +41,17 @@ const LengthLimit = styled.p`
   white-space: nowrap;
   text-overflow: ellipsis;
 `;
-function Item({ name }) {
+function Item() {
+  const { name } = useContext(LettersContext);
   const letters = JSON.parse(localStorage.getItem("letters"));
 
   const filteredLetters = letters.filter((data) => {
     return data.writedTo === name;
   });
 
-  console.log("내용", filteredLetters.length);
   if (filteredLetters === 0) {
     console.log("내용없음");
   }
-  console.log("테스트", !filteredLetters.length);
 
   return (
     <>

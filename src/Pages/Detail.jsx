@@ -11,6 +11,7 @@ function Detail() {
   const navigate = useNavigate();
 
   //로컬스토리지에 저장한 값 들고오기
+
   const detailLetter = JSON.parse(localStorage.getItem("letters"));
 
   //그 값들 중에서 넘겨오는 id와  일치한 것만 보여주기
@@ -26,7 +27,6 @@ function Detail() {
     const searchIndex = detailLetter.findIndex((e) => e.content === searchData);
     const deletedLetter = detailLetter.splice(searchIndex, 1);
     localStorage.setItem("letters", JSON.stringify(detailLetter));
-    console.log("로컬테스트", JSON.parse(localStorage.getItem("letters")));
 
     //홈으로이동
     // navigate("/main");
@@ -53,7 +53,6 @@ function Detail() {
     const searchData = resultLetter.id;
     const searchIndex = detailLetter.findIndex((e) => e.id === id);
 
-    console.log("수정중", (resultLetter[searchIndex].content = changeContent));
     localStorage.setItem("letters", JSON.stringify(resultLetter));
 
     //홈으로 이동
