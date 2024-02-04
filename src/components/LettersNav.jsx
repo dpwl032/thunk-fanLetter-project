@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { fakeData } from "shared/DummyData";
 import LetterForm from "components/LetterForm";
 import { Link } from "react-router-dom";
+import Item from "./Item";
 
 const StNav = styled.div`
   height: 150px;
@@ -177,35 +178,7 @@ function LettersNav() {
       </StNav>
       <LetterForm onSubmitLetter={onSubmitLetter} />
       {/* Item 컴포넌트부분 */}
-      {/* <Item name={name} /> */}
-      <div style={{ border: "1px solid black" }}>
-        <StItemUl>
-          {filteredLetters.map((data) => {
-            return (
-              <StItemLi key={data.id}>
-                <Link
-                  to={`/navi/${data.id}`}
-                  letters={letters}
-                  style={{ textDecoration: "none", color: "black" }}
-                >
-                  <LetterItems>
-                    <ProfileImg>이미지</ProfileImg>
-                    <LetterItem>
-                      <p> {data.nickname}</p>
-                      <br />
-                      <p>{data.createdAt}</p>
-                      <br />
-                      <LengthLimit>{data.content}</LengthLimit>
-                      <br />
-                    </LetterItem>
-                  </LetterItems>
-                </Link>
-              </StItemLi>
-            );
-          })}
-        </StItemUl>
-        내용이 없을 때{!filteredLetters.length ? <p>내용이없어영</p> : ""}
-      </div>
+      <Item name={name} />
     </>
   );
 }

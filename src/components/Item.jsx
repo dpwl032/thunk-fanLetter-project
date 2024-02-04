@@ -1,10 +1,6 @@
 import React from "react";
-import { fakeData } from "shared/DummyData";
 import styled from "styled-components";
-import { useRef } from "react";
 import { Link } from "react-router-dom";
-import LettersLayout from "./LettersLayout";
-import { useEffect } from "react";
 
 const StItemUl = styled.ul`
   width: 800px;
