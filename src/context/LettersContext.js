@@ -8,7 +8,6 @@ const LetterProvider = ({ children }) => {
   //Nav 전역관리
   const [name, setName] = useState("카리나");
   const [letters, setLetters] = useState([...fakeData]);
-  const [click, setClick] = useState(false);
 
   const onSubmitLetter = (nextLetter) => {
     setLetters((prevLetter) => [nextLetter, ...prevLetter]);
@@ -59,6 +58,10 @@ const LetterProvider = ({ children }) => {
   };
 
   //detail
+  const modifyLetter = (e) => {
+    setClick(!click);
+  };
+  const [click, setClick] = useState(false);
 
   //전역관리하는 요소들 뿌려주기
   return (
@@ -68,13 +71,15 @@ const LetterProvider = ({ children }) => {
         setName,
         letters,
         setLetters,
-        click,
-        setClick,
+
         onSubmitLetter,
         onclickHandler,
         today,
         dateString,
         handleSubmit,
+        modifyLetter,
+        click,
+        setClick,
       }}
     >
       {children}

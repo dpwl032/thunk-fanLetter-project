@@ -7,6 +7,8 @@ import { useState } from "react";
 import { LettersContext } from "context/LettersContext";
 
 function Detail() {
+  const { modifyLetter, click, setClick } = useContext(LettersContext);
+
   const params = useParams();
   const navigate = useNavigate();
 
@@ -28,15 +30,10 @@ function Detail() {
     const deletedLetter = detailLetter.splice(searchIndex, 1);
     localStorage.setItem("letters", JSON.stringify(detailLetter));
 
-    //홈으로이동
-    // navigate("/main");
+    // navigate("/");
   };
 
   //수정버튼
-  const modifyLetter = (e) => {
-    setClick(!click);
-  };
-  const { click, setClick } = useContext(LettersContext);
 
   //수정내용 state
   const [changeContent, setChangeContent] = useState(foundLetter.content);
@@ -51,19 +48,18 @@ function Detail() {
 
     const resultLetter = JSON.parse(localStorage.getItem("letters"));
     const searchData = resultLetter.id;
-    const searchIndex = detailLetter.findIndex((e) => e.id === id);
+    const searchIndex = resultLetter.findIndex((e) => e.id === id);
+    resultLetter[searchIndex].content = changeContent;
 
     localStorage.setItem("letters", JSON.stringify(resultLetter));
-
-    //홈으로 이동
-    // navigate("/main");
+    // navigate("/");
   };
 
   return (
     <>
       <div>팬레터 세부페이지입니다.</div>
       <br />
-      <Link to="/main">
+      <Link to="/">
         <button>홈으로가기</button>
       </Link>
       <p>{foundLetter.nickname}</p>
