@@ -26,7 +26,7 @@ function Detail() {
     console.log("로컬테스트", JSON.parse(localStorage.getItem("letters")));
 
     //홈으로이동
-    navigate("/main");
+    // navigate("/main");
   };
 
   //수정버튼
@@ -54,7 +54,7 @@ function Detail() {
     localStorage.setItem("letters", JSON.stringify(resultLetter));
 
     //홈으로 이동
-    navigate("/main");
+    // navigate("/main");
   };
 
   return (

@@ -111,9 +111,18 @@ function LettersNav() {
     return data.writedTo === name;
   });
 
-  // 초기화 수정중
+  //초기화
+
+  // localStorage.setItem("letters", JSON.stringify(letters));
   const detailLetter = JSON.parse(localStorage.getItem("letters"));
-  const allLetters = localStorage.setItem("letters", JSON.stringify(letters));
+  // const allLetters = localStorage.setItem("letters", JSON.stringify(letters));
+  console.log("get", detailLetter);
+  // console.log("set", allLetters);
+  console.log("-----------");
+
+  useEffect(() => {
+    localStorage.setItem("letters", JSON.stringify(letters));
+  }, [letters]);
 
   // console.log("detailLetter", detailLetter);
 
@@ -123,10 +132,6 @@ function LettersNav() {
   //     "letters",
   //     JSON.stringify(detailLetter)
   //   );
-
-  //   console.log("업데이트된 후", letters);
-  //   console.log("자고싶다", ahahah);
-  //   console.log("-----------------");
 
   //   return () => {
   //     // 업데이트 되기 전에 출력
@@ -140,6 +145,15 @@ function LettersNav() {
   // // const filteredLetters = detailLetter.filter((data) => {
   // //   return data.writedTo === name;
   // // });
+  useEffect(() => {
+    console.log("처음에만");
+  }, []);
+  useEffect(() => {
+    console.log("렌더링 될때마다");
+  });
+  useEffect(() => {
+    console.log("값이변경 될때마다");
+  }, [letters]);
 
   return (
     <>

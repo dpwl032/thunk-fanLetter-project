@@ -50,6 +50,7 @@ function LetterForm({ onSubmitLetter }) {
     });
     e.target.reset();
   };
+
   return (
     <>
       <StForm>
