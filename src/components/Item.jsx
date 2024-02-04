@@ -51,6 +51,12 @@ function Item({ name }) {
     return data.writedTo === name;
   });
 
+  console.log("내용", filteredLetters.length);
+  if (filteredLetters === 0) {
+    console.log("내용없음");
+  }
+  console.log("테스트", !filteredLetters.length);
+
   return (
     <>
       <div style={{ border: "1px solid black" }}>

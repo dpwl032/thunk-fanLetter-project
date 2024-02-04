@@ -20,10 +20,10 @@ function LetterForm({ onSubmitLetter }) {
     const nickname = e.target.nickname.value;
     const content = e.target.content.value;
 
-    const allLetters = localStorage.setItem(
-      "letters",
-      JSON.stringify([...nickname])
-    );
+    // const allLetters = localStorage.setItem(
+    //   "letters",
+    //   JSON.stringify([...nickname])
+    // );
 
     if (!nickname || !content) {
       alert("빈칸없이 내용을 입력해주세요!");

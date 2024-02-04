@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { fakeData } from "shared/DummyData";
 import LetterForm from "components/LetterForm";
 import { Link } from "react-router-dom";
+import Item from "components/Item";
 
 const StNav = styled.div`
   height: 150px;
@@ -93,7 +94,7 @@ const LengthLimit = styled.p`
   text-overflow: ellipsis;
 `;
 
-function LettersNav() {
+function Main() {
   const [name, setName] = useState("카리나");
   // const [letters, setLetters] = useState([]);
 
@@ -101,7 +102,8 @@ function LettersNav() {
     setName(who);
   };
 
-  const [letters, setLetters] = useState([...fakeData]);
+  const lastLetters = JSON.parse(localStorage.getItem("letters"));
+  const [letters, setLetters] = useState(lastLetters);
 
   const onSubmitLetter = (nextLetter) => {
     setLetters((prevLetter) => [nextLetter, ...prevLetter]);
@@ -114,32 +116,6 @@ function LettersNav() {
   // 초기화 수정중
   const detailLetter = JSON.parse(localStorage.getItem("letters"));
   const allLetters = localStorage.setItem("letters", JSON.stringify(letters));
-
-  // console.log("detailLetter", detailLetter);
-
-  // useEffect(() => {
-  //   // 업데이트 된 후에 출력
-  //   const ahahah = localStorage.setItem(
-  //     "letters",
-  //     JSON.stringify(detailLetter)
-  //   );
-
-  //   console.log("업데이트된 후", letters);
-  //   console.log("자고싶다", ahahah);
-  //   console.log("-----------------");
-
-  //   return () => {
-  //     // 업데이트 되기 전에 출력
-  //     console.log("업데이트 전", letters);
-  //     const nowData = JSON.parse(localStorage.getItem("letters"));
-  //     console.log("현재데이터", nowData);
-  //     console.log("-----------------");
-  //   };
-  // }, [setLetters]);
-
-  // // const filteredLetters = detailLetter.filter((data) => {
-  // //   return data.writedTo === name;
-  // // });
 
   return (
     <>
@@ -163,37 +139,10 @@ function LettersNav() {
       </StNav>
       <LetterForm onSubmitLetter={onSubmitLetter} />
       {/* Item 컴포넌트부분 */}
-      {/* <Item name={name} /> */}
-      <div style={{ border: "1px solid black" }}>
-        <StItemUl>
-          {filteredLetters.map((data) => {
-            return (
-              <StItemLi key={data.id}>
-                <Link
-                  to={`/navi/${data.id}`}
-                  letters={letters}
-                  style={{ textDecoration: "none", color: "black" }}
-                >
-                  <LetterItems>
-                    <ProfileImg>이미지</ProfileImg>
-                    <LetterItem>
-                      <p> {data.nickname}</p>
-                      <br />
-                      <p>{data.createdAt}</p>
-                      <br />
-                      <LengthLimit>{data.content}</LengthLimit>
-                      <br />
-                    </LetterItem>
-                  </LetterItems>
-                </Link>
-              </StItemLi>
-            );
-          })}
-        </StItemUl>
-        내용이 없을 때{!filteredLetters.length ? <p>내용이없어영</p> : ""}
-      </div>
+      <Item name={name} />
+      {!filteredLetters.length ? <p>내용이없어영</p> : ""}
     </>
   );
 }
 
-export default LettersNav;
+export default Main;

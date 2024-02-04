@@ -15,15 +15,18 @@ function Detail() {
     return letter.id === params.id;
   });
 
-  // 삭제버튼;
+  // 삭제버튼
   const deleteLetter = () => {
     alert("삭제하시겠습니까?");
     //detailLetter : 기존배열, deletedLetter : 삭제한 요소
-    const searhData = foundLetter.content;
-    const searchIndex = detailLetter.findIndex((e) => e.content === searhData);
+    const searchData = foundLetter.content;
+    const searchIndex = detailLetter.findIndex((e) => e.content === searchData);
     const deletedLetter = detailLetter.splice(searchIndex, 1);
     localStorage.setItem("letters", JSON.stringify(detailLetter));
     console.log("로컬테스트", JSON.parse(localStorage.getItem("letters")));
+
+    //홈으로이동
+    navigate("/main");
   };
 
   //수정버튼
@@ -48,15 +51,17 @@ function Detail() {
     const searchIndex = detailLetter.findIndex((e) => e.id === id);
 
     console.log("수정중", (resultLetter[searchIndex].content = changeContent));
-    console.log(resultLetter);
     localStorage.setItem("letters", JSON.stringify(resultLetter));
+
+    //홈으로 이동
+    navigate("/main");
   };
 
   return (
     <>
       <div>팬레터 세부페이지입니다.</div>
       <br />
-      <Link to="/">
+      <Link to="/main">
         <button>홈으로가기</button>
       </Link>
       <p>{foundLetter.nickname}</p>
@@ -88,9 +93,6 @@ function Detail() {
       ) : (
         ""
       )}
-
-      <p>수정된 내용</p>
-      {changeContent}
     </>
   );
 }
