@@ -3,6 +3,7 @@ import { fakeData } from "shared/DummyData";
 import { useParams } from "react-router-dom";
 
 export const LettersContext = createContext();
+//redux 리팩토링 시작
 
 const LetterProvider = ({ children }) => {
   //styled
