@@ -5,6 +5,25 @@ import { useParams } from "react-router-dom";
 export const LettersContext = createContext();
 
 const LetterProvider = ({ children }) => {
+  //styled
+  const celebrityList = ["지젤", "카리나", "윈터", "닝닝"];
+
+  //이름을 넣으면 체크 후 누군지 리턴한다
+  const celebrityJob = (who) => {
+    switch (who) {
+      case "지젤":
+        return "지젤";
+      case "카리나":
+        return "카리나";
+      case "윈터":
+        return "윈터";
+      case "닝닝":
+        return "닝닝";
+      default:
+        return "연예인이 아닙니다";
+    }
+  };
+
   //Nav 전역관리
   const [name, setName] = useState("카리나");
   const [letters, setLetters] = useState([...fakeData]);
@@ -67,6 +86,8 @@ const LetterProvider = ({ children }) => {
   return (
     <LettersContext.Provider
       value={{
+        celebrityList,
+        celebrityJob,
         name,
         setName,
         letters,

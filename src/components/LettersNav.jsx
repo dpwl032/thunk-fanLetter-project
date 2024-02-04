@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
-import { fakeData } from "shared/DummyData";
 import LetterForm from "components/LetterForm";
-import { Link } from "react-router-dom";
 import Item from "./Item";
 import { LettersContext } from "context/LettersContext";
 
@@ -29,30 +27,9 @@ const StButton = styled.button`
   height: 30px;
   border-radius: 10px;
   text-align: center;
-  /* ${(props) => props.$hoverItem}:hover {
-    border-radius: 10px;
-    color: white;
-    background-color: red;
-  } */
 `;
-//이름을 배열에 담는다.
-const celebrityList = ["지젤", "카리나", "윈터", "닝닝"];
 
-//이름을 넣으면 체크 후 누군지 리턴한다
-const celebrityJob = (who) => {
-  switch (who) {
-    case "지젤":
-      return "지젤";
-    case "카리나":
-      return "카리나";
-    case "윈터":
-      return "윈터";
-    case "닝닝":
-      return "닝닝";
-    default:
-      return "연예인이 아닙니다";
-  }
-};
+//이름을 배열에 담는다.
 
 /*item style*/
 
@@ -96,45 +73,20 @@ const LengthLimit = styled.p`
 `;
 
 function LettersNav() {
+  //context Api
   const { name, setName, letters, setLetters, onSubmitLetter, onclickHandler } =
     useContext(LettersContext);
+  const { celebrityList, celebrityJob } = useContext(LettersContext);
 
-  // const [letters, setLetters] = useState([]);
-
-  //초기화
-
-  // localStorage.setItem("letters", JSON.stringify(letters));
+  //local Storage오류해결중
   const detailLetter = JSON.parse(localStorage.getItem("letters"));
-  // const allLetters = localStorage.setItem("letters", JSON.stringify(letters));
   console.log("get", detailLetter);
-  // console.log("set", allLetters);
   console.log("-----------");
 
   useEffect(() => {
     localStorage.setItem("letters", JSON.stringify(letters));
   }, [letters]);
 
-  // console.log("detailLetter", detailLetter);
-
-  // useEffect(() => {
-  //   // 업데이트 된 후에 출력
-  //   const ahahah = localStorage.setItem(
-  //     "letters",
-  //     JSON.stringify(detailLetter)
-  //   );
-
-  //   return () => {
-  //     // 업데이트 되기 전에 출력
-  //     console.log("업데이트 전", letters);
-  //     const nowData = JSON.parse(localStorage.getItem("letters"));
-  //     console.log("현재데이터", nowData);
-  //     console.log("-----------------");
-  //   };
-  // }, [setLetters]);
-
-  // // const filteredLetters = detailLetter.filter((data) => {
-  // //   return data.writedTo === name;
-  // // });
   useEffect(() => {
     console.log("처음에만");
   }, []);

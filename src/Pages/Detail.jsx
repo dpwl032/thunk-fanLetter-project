@@ -7,13 +7,13 @@ import { useState } from "react";
 import { LettersContext } from "context/LettersContext";
 
 function Detail() {
+  //context Api
   const { modifyLetter, click, setClick } = useContext(LettersContext);
 
   const params = useParams();
   const navigate = useNavigate();
 
   //로컬스토리지에 저장한 값 들고오기
-
   const detailLetter = JSON.parse(localStorage.getItem("letters"));
 
   //그 값들 중에서 넘겨오는 id와  일치한 것만 보여주기

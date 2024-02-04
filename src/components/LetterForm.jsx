@@ -9,6 +9,7 @@ const StForm = styled.div`
 `;
 
 function LetterForm() {
+  //context Api
   const { handleSubmit, today, dateString } = useContext(LettersContext);
 
   return (
