@@ -1,7 +1,10 @@
-import React from "react";
+//detail
+
+import React, { useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { LettersContext } from "context/LettersContext";
 
 function Detail() {
   const params = useParams();
@@ -33,7 +36,7 @@ function Detail() {
   const modifyLetter = (e) => {
     setClick(!click);
   };
-  const [click, setClick] = useState(false);
+  const { click, setClick } = useContext(LettersContext);
 
   //수정내용 state
   const [changeContent, setChangeContent] = useState(foundLetter.content);

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import LettersNav from "./LettersNav";
 import LettersHeader from "./LettersHeader";
-import { LettersContext } from "context/LettersContext";
+import LetterProvider from "context/LettersContext";
 
 const StLayout = styled.div`
   width: 100%;
@@ -14,17 +14,15 @@ const StLayout = styled.div`
 function LettersLayout() {
   return (
     <>
-      <LetterProvider>
-        <StLayout>
-          Layout 부분입니다
-          <div>
-            <LettersHeader />
-            <LettersNav />
-            {/* <Form />
+      <StLayout>
+        Layout 부분입니다
+        <div>
+          <LettersHeader />
+          <LettersNav />
+          {/* <Form />
           <List /> */}
-          </div>
-        </StLayout>
-      </LetterProvider>
+        </div>
+      </StLayout>
     </>
   );
 }

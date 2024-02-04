@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { fakeData } from "shared/DummyData";
 import LetterForm from "components/LetterForm";
 import { Link } from "react-router-dom";
 import Item from "./Item";
+import { LettersContext } from "context/LettersContext";
 
 const StNav = styled.div`
   height: 150px;
@@ -95,22 +96,10 @@ const LengthLimit = styled.p`
 `;
 
 function LettersNav() {
-  const [name, setName] = useState("카리나");
+  const { name, setName, letters, setLetters, onSubmitLetter, onclickHandler } =
+    useContext(LettersContext);
+
   // const [letters, setLetters] = useState([]);
-
-  const onclickHandler = (who) => {
-    setName(who);
-  };
-
-  const [letters, setLetters] = useState([...fakeData]);
-
-  const onSubmitLetter = (nextLetter) => {
-    setLetters((prevLetter) => [nextLetter, ...prevLetter]);
-  };
-
-  const filteredLetters = letters.filter((data) => {
-    return data.writedTo === name;
-  });
 
   //초기화
 

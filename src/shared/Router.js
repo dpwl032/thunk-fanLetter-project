@@ -11,6 +11,7 @@ const Router = () => {
         <Route path="item" element={<Item />} />
         <Route path="navi/:id" element={<Detail />} />
         <Route path="detail" element={<Detail />} />
+        <Route path="item" element={<Item />} />
       </Routes>
     </BrowserRouter>
   );
