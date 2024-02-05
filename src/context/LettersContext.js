@@ -3,7 +3,7 @@ import { fakeData } from "shared/DummyData";
 import { useParams } from "react-router-dom";
 
 export const LettersContext = createContext();
-//redux 리팩토링 시작
+//redux 리팩토링 시작s
 
 const LetterProvider = ({ children }) => {
   //styled
@@ -27,10 +27,14 @@ const LetterProvider = ({ children }) => {
 
   //Nav 전역관리
   const [name, setName] = useState("카리나");
-  const [letters, setLetters] = useState([...fakeData]);
+  const [letters, setLetters] = useState(
+    JSON.parse(localStorage.getItem("letters")) ?? [...fakeData]
+  );
 
   const onSubmitLetter = (nextLetter) => {
     setLetters((prevLetter) => [nextLetter, ...prevLetter]);
+
+    localStorage.setItem("letters", JSON.stringify([nextLetter, ...letters]));
   };
 
   const onclickHandler = (who) => {

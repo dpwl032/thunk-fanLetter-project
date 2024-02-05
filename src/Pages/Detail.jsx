@@ -8,7 +8,8 @@ import { LettersContext } from "context/LettersContext";
 
 function Detail() {
   //context Api
-  const { modifyLetter, click, setClick } = useContext(LettersContext);
+  const { modifyLetter, click, setClick, setLetters } =
+    useContext(LettersContext);
 
   const params = useParams();
   const navigate = useNavigate();
@@ -20,18 +21,6 @@ function Detail() {
   const foundLetter = detailLetter.find((letter) => {
     return letter.id === params.id;
   });
-
-  // 삭제버튼
-  const deleteLetter = () => {
-    alert("삭제하시겠습니까?");
-    //detailLetter : 기존배열, deletedLetter : 삭제한 요소
-    const searchData = foundLetter.content;
-    const searchIndex = detailLetter.findIndex((e) => e.content === searchData);
-    const deletedLetter = detailLetter.splice(searchIndex, 1);
-    localStorage.setItem("letters", JSON.stringify(detailLetter));
-
-    // navigate("/");
-  };
 
   //수정버튼
 
@@ -52,7 +41,24 @@ function Detail() {
     resultLetter[searchIndex].content = changeContent;
 
     localStorage.setItem("letters", JSON.stringify(resultLetter));
-    // navigate("/");
+    const resultLetters = JSON.parse(localStorage.getItem("letters"));
+    setLetters(resultLetters);
+
+    navigate("/");
+  };
+
+  // 삭제버튼
+  const deleteLetter = () => {
+    alert("삭제하시겠습니까?");
+    //detailLetter : 기존배열, deletedLetter : 삭제한 요소
+    const searchData = foundLetter.content;
+    const searchIndex = detailLetter.findIndex((e) => e.content === searchData);
+    const deletedLetter = detailLetter.splice(searchIndex, 1);
+    localStorage.setItem("letters", JSON.stringify(detailLetter));
+    const test = JSON.parse(localStorage.getItem("letters"));
+    setLetters(test);
+
+    navigate(-1);
   };
 
   return (

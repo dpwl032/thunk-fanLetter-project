@@ -42,8 +42,7 @@ const LengthLimit = styled.p`
   text-overflow: ellipsis;
 `;
 function Item() {
-  const { name } = useContext(LettersContext);
-  const letters = JSON.parse(localStorage.getItem("letters"));
+  const { name, letters } = useContext(LettersContext);
 
   const filteredLetters = letters.filter((data) => {
     return data.writedTo === name;
@@ -52,6 +51,9 @@ function Item() {
   if (filteredLetters === 0) {
     console.log("내용없음");
   }
+
+  const aaa = JSON.parse(localStorage.getItem("letters"));
+  console.log("로컬", aaa);
 
   return (
     <>

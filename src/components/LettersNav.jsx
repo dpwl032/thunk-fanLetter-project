@@ -78,25 +78,6 @@ function LettersNav() {
     useContext(LettersContext);
   const { celebrityList, celebrityJob } = useContext(LettersContext);
 
-  //local Storage오류해결중
-  const detailLetter = JSON.parse(localStorage.getItem("letters"));
-  console.log("get", detailLetter);
-  console.log("-----------");
-
-  useEffect(() => {
-    localStorage.setItem("letters", JSON.stringify(letters));
-  }, [letters]);
-
-  useEffect(() => {
-    console.log("처음에만");
-  }, []);
-  useEffect(() => {
-    console.log("렌더링 될때마다");
-  });
-  useEffect(() => {
-    console.log("값이변경 될때마다");
-  }, [letters]);
-
   return (
     <>
       <StNav>
