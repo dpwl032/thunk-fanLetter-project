@@ -42,18 +42,13 @@ const LengthLimit = styled.p`
   text-overflow: ellipsis;
 `;
 function Item() {
-  const { name, letters } = useContext(LettersContext);
+  const { name, letters, setLetters } = useContext(LettersContext);
 
   const filteredLetters = letters.filter((data) => {
-    return data.writedTo === name;
+    return data.writedTo == name;
   });
 
-  if (filteredLetters === 0) {
-    console.log("내용없음");
-  }
-
-  const aaa = JSON.parse(localStorage.getItem("letters"));
-  console.log("로컬", aaa);
+  console.log(letters);
 
   return (
     <>
@@ -83,6 +78,7 @@ function Item() {
             );
           })}
         </StItemUl>
+        {!filteredLetters.length ? <p>내용이없어영</p> : ""}
       </div>
     </>
   );

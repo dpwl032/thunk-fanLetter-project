@@ -27,6 +27,9 @@ const LetterProvider = ({ children }) => {
 
   //Nav 전역관리
   const [name, setName] = useState("카리나");
+
+  //fake Data 오류
+  // const [letters, setLetters] = useState([...fakeData]);
   const [letters, setLetters] = useState(
     JSON.parse(localStorage.getItem("letters")) ?? [...fakeData]
   );

@@ -43,6 +43,7 @@ function Detail() {
     localStorage.setItem("letters", JSON.stringify(resultLetter));
     const resultLetters = JSON.parse(localStorage.getItem("letters"));
     setLetters(resultLetters);
+    setClick(false);
 
     navigate("/");
   };
@@ -58,7 +59,7 @@ function Detail() {
     const test = JSON.parse(localStorage.getItem("letters"));
     setLetters(test);
 
-    navigate(-1);
+    navigate("/");
   };
 
   return (
