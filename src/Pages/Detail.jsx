@@ -5,7 +5,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { LettersContext } from "context/LettersContext";
-
+import styled from "styled-components";
+import LettersHeader from "components/LettersHeader";
 function Detail() {
   //context Api
   const { modifyLetter, click, setClick, setLetters } =
@@ -64,41 +65,124 @@ function Detail() {
 
   return (
     <>
-      <div>팬레터 세부페이지입니다.</div>
-      <br />
-      <Link to="/">
-        <button>홈으로가기</button>
-      </Link>
-      <p>{foundLetter.nickname}</p>
-      <p>{foundLetter.createdAt}</p>
-      {click ? (
-        <textarea
-          type="text"
-          name="content"
-          defaultValue={foundLetter.content}
-          onChange={(e) => setChangeContent(e.target.value)}
-        ></textarea>
-      ) : (
-        <p>{foundLetter.content}</p>
-      )}
-      <br />
-      <br />
-      {click ? "" : <button onClick={deleteLetter}>삭제하기</button>}
-      {click ? "" : <button onClick={modifyLetter}>수정하기</button>}
-
-      <br />
-      <br />
-      {click ? (
-        <button
-          name="changeButton"
-          onClick={(e) => onChangeLetter({ foundLetter })}
-        >
-          수정완료
-        </button>
-      ) : (
-        ""
-      )}
+      {" "}
+      <StHeader>
+        <Link to="/">
+          <HeaderBtn>YJ's made</HeaderBtn>
+        </Link>
+        <HeaderBtn>SIGN UP</HeaderBtn>
+      </StHeader>
+      <StDetail>
+        <DetailOneLetter>
+          <div>{foundLetter.nickname}</div>
+          <div>{foundLetter.createdAt}</div>
+          <div>
+            {" "}
+            {click ? (
+              <TextArea
+                type="text"
+                name="content"
+                defaultValue={foundLetter.content}
+                onChange={(e) => setChangeContent(e.target.value)}
+              ></TextArea>
+            ) : (
+              <p>{foundLetter.content}</p>
+            )}
+            <hr />
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "10px",
+                alignItems: "center",
+              }}
+            >
+              {click ? (
+                ""
+              ) : (
+                <DetailBtn onClick={deleteLetter}>삭제하기</DetailBtn>
+              )}
+              {click ? (
+                ""
+              ) : (
+                <DetailBtn onClick={modifyLetter}>수정하기</DetailBtn>
+              )}
+              {click ? (
+                <DetailBtn
+                  name="changeButton"
+                  onClick={(e) => onChangeLetter({ foundLetter })}
+                >
+                  수정완료
+                </DetailBtn>
+              ) : (
+                ""
+              )}
+              <Link to="/">
+                <DetailBtn>홈으로가기</DetailBtn>
+              </Link>
+            </div>
+          </div>
+        </DetailOneLetter>
+      </StDetail>
     </>
   );
 }
 export default Detail;
+
+const StHeader = styled.div`
+  background-color: white;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+`;
+
+const HeaderBtn = styled.button`
+  background-color: #6accc5;
+  width: 100px;
+  height: 50px;
+  border-radius: 20px;
+  color: white;
+  border: none;
+  font-weight: bolder;
+`;
+
+const StDetail = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 700px;
+  background-color: #ede6e69f;
+`;
+
+const DetailOneLetter = styled.div`
+  border: 1px solid black;
+  border-radius: 20px;
+  width: 600px;
+  height: 500px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  gap: 30px;
+`;
+
+const DetailBtn = styled.button`
+  width: 350px;
+  height: 50px;
+  border: none;
+  border-radius: 3px;
+  background-color: #6accc5;
+  color: white;
+`;
+
+const TextArea = styled.textarea`
+  resize: none;
+  width: 350px;
+  height: 170px;
+`;

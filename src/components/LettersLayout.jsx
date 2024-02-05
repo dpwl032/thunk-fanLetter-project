@@ -2,21 +2,34 @@ import React from "react";
 import styled from "styled-components";
 import LettersNav from "./LettersNav";
 import LettersHeader from "./LettersHeader";
+import aespa from "assets/aespa.webp";
+import MusicVideo from "./MusicVideo";
 
 const StLayout = styled.div`
   width: 100%;
-  height: 270px;
-  border: 2px solid red;
-  background-color: pink;
+  height: 100%;
+  background-color: white;
+  background-image: url("");
 `;
-
+const MenuBar = styled.div`
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 100px;
+  color: white;
+  background-color: black;
+  font-family: "Dancing Script", cursive;
+`;
 function LettersLayout() {
   return (
     <>
       <StLayout>
-        Layout 부분입니다
         <div>
           <LettersHeader />
+          <MusicVideo />
+          <MenuBar>aespa</MenuBar>
           <LettersNav />
         </div>
       </StLayout>

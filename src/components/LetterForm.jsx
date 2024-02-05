@@ -15,42 +15,44 @@ function LetterForm() {
   return (
     <>
       <StForm>
-        Form 영역입니다.
-        <br />
-        <form onSubmit={handleSubmit}>
-          <label>닉네임 :</label>
-          <input
-            name="nickname"
-            type="content"
-            placeholder="최대 20글자까지 작성할 수 있습니다."
-            style={{
-              width: "250px",
-              height: "20px",
-            }}
-          />
-          <br />
-          <br />
-          <label>내용 :</label>
-          <textarea
-            name="content"
-            type="text"
-            placeholder="최대 100자까지 작성할 수 있습니다."
-            style={{
-              width: "300px",
-              height: "150px",
-            }}
-          />
-          <br />
-          <br />
-          누구에게 보내실건가요? <br />
-          <select name="writedTo">
-            <option value="카리나">카리나</option>
-            <option value="지젤">지젤</option>
+        <div> 에스파에게 팬레터를 보내주세요!</div>
 
-            <option value="닝닝">닝닝</option>
-            <option value="윈터">윈터</option>
-          </select>
-          <button>팬래터 등록</button>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label>닉네임 :</label>
+            <input
+              name="nickname"
+              type="content"
+              placeholder="최대 20글자까지 작성할 수 있습니다."
+              style={{
+                width: "250px",
+                height: "20px",
+              }}
+            />
+          </div>
+
+          <div>
+            <label>내용 :</label>
+            <TextArea
+              name="content"
+              type="text"
+              placeholder="최대 100자까지 작성할 수 있습니다."
+              style={{
+                width: "300px",
+                height: "150px",
+              }}
+            />
+          </div>
+          <div>
+            <select name="writedTo">
+              <option value="카리나">카리나</option>
+              <option value="지젤">지젤</option>
+
+              <option value="닝닝">닝닝</option>
+              <option value="윈터">윈터</option>
+            </select>
+            <button>팬래터 등록</button>
+          </div>
         </form>
       </StForm>
     </>
@@ -58,3 +60,9 @@ function LetterForm() {
 }
 
 export default LetterForm;
+
+const TextArea = styled.textarea`
+  resize: none;
+  width: 350px;
+  height: 170px;
+`;

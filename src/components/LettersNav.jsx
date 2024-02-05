@@ -4,18 +4,54 @@ import LetterForm from "components/LetterForm";
 import Item from "./Item";
 import { LettersContext } from "context/LettersContext";
 
+function LettersNav() {
+  //context Api
+  const { name, setName, letters, setLetters, onSubmitLetter, onclickHandler } =
+    useContext(LettersContext);
+  const { celebrityList, celebrityJob } = useContext(LettersContext);
+
+  return (
+    <>
+      <StNav>
+        <StUl>
+          {celebrityList.map((who) => {
+            return (
+              <StButton
+                key={who}
+                $hoverItem={who}
+                onClick={() => onclickHandler(who)}
+                style={{
+                  backgroundColor: name === who ? "gray" : "initial",
+                }}
+              >
+                {celebrityJob(who)}
+              </StButton>
+            );
+          })}
+        </StUl>
+      </StNav>
+      <LetterForm />
+      {/* Item 컴포넌트부분 */}
+      <Item />
+    </>
+  );
+}
+
+//브랜치변경완료
+export default LettersNav;
+
 const StNav = styled.div`
-  height: 150px;
-  width: 800px;
-  background: yellow;
-  border: 1px solid black;
+  height: 240px;
+  width: 100%;
+  background: black;
   display: flex;
   justify-content: center;
 `;
 
 const StUl = styled.ul`
+  background-color: white;
   justify-content: space-around;
-  width: 500px;
+  width: 800px;
   border: 1px solid red;
   display: flex;
   align-items: center;
@@ -23,9 +59,9 @@ const StUl = styled.ul`
 
 const StButton = styled.button`
   border: 1px solid black;
-  width: 100px;
-  height: 30px;
-  border-radius: 10px;
+  width: 140px;
+  height: 160px;
+  border-radius: 20px;
   text-align: center;
 `;
 
@@ -64,46 +100,3 @@ const ProfileImg = styled.div`
 const LetterItem = styled.div`
   width: 70%;
 `;
-
-//말줄임 표시 처리방법
-const LengthLimit = styled.p`
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-`;
-
-function LettersNav() {
-  //context Api
-  const { name, setName, letters, setLetters, onSubmitLetter, onclickHandler } =
-    useContext(LettersContext);
-  const { celebrityList, celebrityJob } = useContext(LettersContext);
-
-  return (
-    <>
-      <StNav>
-        <StUl>
-          {celebrityList.map((who) => {
-            return (
-              <StButton
-                key={who}
-                $hoverItem={who}
-                onClick={() => onclickHandler(who)}
-                style={{
-                  backgroundColor: name === who ? "red" : "initial",
-                }}
-              >
-                {celebrityJob(who)}
-              </StButton>
-            );
-          })}
-        </StUl>
-      </StNav>
-      <LetterForm />
-      {/* Item 컴포넌트부분 */}
-      <Item />
-    </>
-  );
-}
-
-//브랜치변경완료
-export default LettersNav;

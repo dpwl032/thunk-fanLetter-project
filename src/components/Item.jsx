@@ -2,45 +2,8 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { LettersContext } from "context/LettersContext";
+import proImg from "assets/9720037.jpg";
 
-const StItemUl = styled.ul`
-  width: 800px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 1px solid black;
-  gap: 20px;
-`;
-
-const StItemLi = styled.li`
-  width: 560px;
-  height: 200px;
-  text-align: center;
-  border: 2px solid red;
-  border-radius: 15px;
-`;
-
-const LetterItems = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100%;
-`;
-
-const ProfileImg = styled.div`
-  width: 30%;
-`;
-
-const LetterItem = styled.div`
-  width: 70%;
-`;
-
-//말줄임 표시 처리방법
-const LengthLimit = styled.p`
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-`;
 function Item() {
   const { name, letters, setLetters } = useContext(LettersContext);
 
@@ -52,7 +15,7 @@ function Item() {
 
   return (
     <>
-      <div style={{ border: "1px solid black" }}>
+      <div style={{ backgroundColor: "black" }}>
         <StItemUl>
           {filteredLetters.map((data) => {
             return (
@@ -63,14 +26,20 @@ function Item() {
                   style={{ textDecoration: "none", color: "black" }}
                 >
                   <LetterItems>
-                    <ProfileImg>이미지</ProfileImg>
+                    <ProfileImg>
+                      <img
+                        src={null ?? proImg}
+                        alt="프로필이미지입니다"
+                        style={{ width: "150px", borderRadius: "100px" }}
+                      />
+                    </ProfileImg>
+
                     <LetterItem>
-                      <p> {data.nickname}</p>
-                      <br />
-                      <p>{data.createdAt}</p>
-                      <br />
-                      <LengthLimit>{data.content}</LengthLimit>
-                      <br />
+                      <div> {data.nickname}</div>
+                      <div>
+                        <LengthLimit>{data.content}</LengthLimit>
+                      </div>
+                      <div style={{ color: "gray" }}>{data.createdAt}</div>
                     </LetterItem>
                   </LetterItems>
                 </Link>
@@ -85,3 +54,49 @@ function Item() {
 }
 
 export default Item;
+
+const StItemUl = styled.ul`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+`;
+
+const StItemLi = styled.li`
+  width: 560px;
+  height: 200px;
+  text-align: center;
+  border-radius: 15px;
+  background-color: white;
+`;
+
+const LetterItems = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+`;
+
+const ProfileImg = styled.div`
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const LetterItem = styled.div`
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+`;
+
+//말줄임 표시 처리방법
+const LengthLimit = styled.p`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`;
