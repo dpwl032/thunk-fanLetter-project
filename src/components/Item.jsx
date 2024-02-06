@@ -11,8 +11,6 @@ function Item() {
     return data.writedTo == name;
   });
 
-  console.log(letters);
-
   return (
     <>
       <div style={{ backgroundColor: "black" }}>
@@ -47,7 +45,15 @@ function Item() {
             );
           })}
         </StItemUl>
-        {!filteredLetters.length ? <p>내용이없어영</p> : ""}
+
+        {!filteredLetters.length ? (
+          <NoneLetter>
+            {" "}
+            현재 작성된 편지가 없습니다. [{name}]에게 팬레터를 보내주세요!
+          </NoneLetter>
+        ) : (
+          ""
+        )}
       </div>
     </>
   );
@@ -99,4 +105,13 @@ const LengthLimit = styled.p`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+`;
+
+const NoneLetter = styled.p`
+  color: white;
+  width: 100%;
+  height: 200px;
+  font-size: 45px;
+  text-align: center;
+  font-family: "Nanum Gothic", sans-serif;
 `;

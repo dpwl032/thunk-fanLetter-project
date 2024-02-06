@@ -159,7 +159,7 @@ const StDetail = styled.div`
 `;
 
 const DetailOneLetter = styled.div`
-  border: 1px solid black;
+  border: 1px solid #b9aeae9f;
   border-radius: 20px;
   width: 600px;
   height: 500px;

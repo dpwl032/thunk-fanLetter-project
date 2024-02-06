@@ -31,6 +31,7 @@ function LettersNav() {
         </StUl>
       </StNav>
       <LetterForm />
+      <div style={{ background: "black" }}> &nbsp;</div>
       {/* Item 컴포넌트부분 */}
       <Item />
     </>

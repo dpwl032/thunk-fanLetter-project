@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import LettersNav from "./LettersNav";
 import LettersHeader from "./LettersHeader";
-import aespa from "assets/aespa.webp";
+
 import MusicVideo from "./MusicVideo";
 
 const StLayout = styled.div`
