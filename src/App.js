@@ -1,13 +1,16 @@
 import logo from "./logo.svg";
 import "./App.css";
+import Router from "./shared/Router";
+import GlobalStyle from "components/GlobalStyle";
+import LetterProvider from "context/LettersContext";
 
 function App() {
   return (
     <>
-      branch props-drilling <br />
-      branch context
-      <br />
-      branch redux
+      <LetterProvider>
+        <GlobalStyle />
+        <Router />
+      </LetterProvider>
     </>
   );
 }
