@@ -3,10 +3,8 @@ import { fakeData } from "shared/DummyData";
 import { useParams } from "react-router-dom";
 
 export const LettersContext = createContext();
-//redux 리팩토링 시작s
 
 const LetterProvider = ({ children }) => {
-  //styled
   const celebrityList = ["지젤", "카리나", "윈터", "닝닝"];
 
   //이름을 넣으면 체크 후 누군지 리턴한다
@@ -28,7 +26,6 @@ const LetterProvider = ({ children }) => {
   //Nav 전역관리
   const [name, setName] = useState("카리나");
 
-  //fake Data 오류
   // const [letters, setLetters] = useState([...fakeData]);
   const [letters, setLetters] = useState(
     JSON.parse(localStorage.getItem("letters")) ?? [...fakeData]
@@ -100,7 +97,6 @@ const LetterProvider = ({ children }) => {
         setName,
         letters,
         setLetters,
-
         onSubmitLetter,
         onclickHandler,
         today,

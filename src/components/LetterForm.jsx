@@ -59,7 +59,6 @@ function LetterForm() {
     <>
       <StForm>
         <Toaespa>에스파에게 내용을 작성해주세요!</Toaespa>
-
         <InputAndBtn onSubmit={handleSubmit}>
           <InputFormSt>
             닉네임 : &nbsp;
@@ -90,7 +89,6 @@ function LetterForm() {
             <select name="writedTo">
               <option value="카리나">카리나</option>
               <option value="지젤">지젤</option>
-
               <option value="닝닝">닝닝</option>
               <option value="윈터">윈터</option>
             </select>
