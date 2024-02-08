@@ -38,7 +38,6 @@ function LettersNav() {
   );
 }
 
-//브랜치변경완료
 export default LettersNav;
 
 const StNav = styled.div`
