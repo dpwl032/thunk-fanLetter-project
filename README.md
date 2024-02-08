@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# 팬레터 프로젝트
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> 스파르타 리덕스 숙련주차 개인과제
 
-## Available Scripts
+## 주제
 
-In the project directory, you can run:
+그룹 아티스트 팬레터함
 
-### `yarn start`
+## 개발기간
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+개발 기간 : 2024.02.02 ~ 2024.02.05
+보완 기간 : 2024.02.06 ~ 진행중
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 필수 구현 사항
 
-### `yarn test`
+- CRUD
+- 아티스트별 게시물 조회
+- 원하는 아티스트에게만 팬레터 등록
+- 팬레터 상세화면 구현
+- 상세화면에서 CRUD
+- 팬레터 등록시 id-uuid 사용
+- 전역 스타일에 reset.css 적용 후 box-sizing : border-box 설정
+<details><summary>Styled-components를 이용하여 스타일링
+</summary>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+_인라인 스타일링, css 파일을 이용한 스타일링방식 지양_
+_스타일링이 들어간 경우는 styled-components화_
+_아티스트 선택탭에 props를 넘겨 조건부 스타일링 적용_
 
-### `yarn build`
+</details>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 페이지 구성
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Main
+- Detail (팬레터 상세페이지)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 진행하면서 발생한 오류
 
-### `yarn eject`
+- localStorage를 사용해 fakeDate를 초기 데이터를 저장했다. 그 후 작성되는 letters도 setItem을 사용해 저장했지만, 팬레터 상세페이지와 홈화면을 이동하면 초기에 저장된 localStorage만 남아있었다.
+<details><summary>해결방법</summary>
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+* const [letters, setLetters] = useState(
+JSON.parse(localStorage.getItem("letters")) ?? [...fakeData]
+);\*
+</details>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 프로젝트 보완 사항
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- box-sizing : border-box 설정
+- redux를 사용한 리팩토링 (현재 진행중)
