@@ -8,7 +8,7 @@
 
 ## 개발기간
 
-개발 기간 : 2024.02.02 ~ 2024.02.05
+개발 기간 : 2024.02.02 ~ 2024.02.05<br>
 보완 기간 : 2024.02.06 ~ 진행중
 
 ## 필수 구현 사항
@@ -48,3 +48,5 @@ JSON.parse(localStorage.getItem("letters")) ?? [...fakeData]
 
 - box-sizing : border-box 설정
 - redux를 사용한 리팩토링 (현재 진행중)
+- Youtube api 사용
+- 의미없는 swtich문 변경수정

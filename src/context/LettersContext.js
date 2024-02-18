@@ -1,13 +1,14 @@
 import { createContext, useState } from "react";
 import { fakeData } from "shared/DummyData";
-import { useParams } from "react-router-dom";
 
 export const LettersContext = createContext();
 
-const LetterProvider = ({ children }) => {
-  const celebrityList = ["지젤", "카리나", "윈터", "닝닝"];
+//바뀌지 않을 정적인 데이터는 컴포넌트의 바깥에서 선언하기
+const celebrityList = ["지젤", "카리나", "윈터", "닝닝"];
 
-  //이름을 넣으면 체크 후 누군지 리턴한다
+const LetterProvider = ({ children }) => {
+  //styled
+  // 이름을 넣으면 체크 후 누군지 리턴한다
   const celebrityJob = (who) => {
     switch (who) {
       case "지젤":
@@ -26,6 +27,10 @@ const LetterProvider = ({ children }) => {
   //Nav 전역관리
   const [name, setName] = useState("카리나");
 
+  //select관리
+  const [writedTo, setWritedTo] = useState("지젤");
+
+  //fake Data 오류
   // const [letters, setLetters] = useState([...fakeData]);
   const [letters, setLetters] = useState(
     JSON.parse(localStorage.getItem("letters")) ?? [...fakeData]
@@ -49,9 +54,15 @@ const LetterProvider = ({ children }) => {
     day: "numeric",
   });
 
+  //select onChane & value로 변경
+  const onChangeName = (e) => {
+    setWritedTo(e.target.value);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const writedTo = e.target.writedTo.value;
+
+    //select onChane & value로 변경
     const nickname = e.target.nickname.value;
     const content = e.target.content.value;
 
@@ -105,6 +116,9 @@ const LetterProvider = ({ children }) => {
         modifyLetter,
         click,
         setClick,
+        writedTo,
+        setWritedTo,
+        onChangeName,
       }}
     >
       {children}

@@ -2,8 +2,24 @@ import React from "react";
 import styled from "styled-components";
 import LettersNav from "./LettersNav";
 import LettersHeader from "./LettersHeader";
-
 import MusicVideo from "./MusicVideo";
+
+function LettersLayout() {
+  return (
+    <>
+      <StLayout>
+        <div>
+          <LettersHeader />
+          <MusicVideo />
+          <MenuBar>aespa</MenuBar>
+          <LettersNav />
+        </div>
+      </StLayout>
+    </>
+  );
+}
+
+export default LettersLayout;
 
 const StLayout = styled.div`
   width: 100%;
@@ -22,19 +38,3 @@ const MenuBar = styled.div`
   background-color: black;
   font-family: "Dancing Script", cursive;
 `;
-function LettersLayout() {
-  return (
-    <>
-      <StLayout>
-        <div>
-          <LettersHeader />
-          <MusicVideo />
-          <MenuBar>aespa</MenuBar>
-          <LettersNav />
-        </div>
-      </StLayout>
-    </>
-  );
-}
-
-export default LettersLayout;
