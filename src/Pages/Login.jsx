@@ -1,12 +1,28 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
+import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import api from "axios";
+import { __loginUser } from "../redux/modules/authSlice";
 
 function Login() {
   const [click, setClick] = useState(false);
   const [id, setId] = useState("");
-  const [pw, setPw] = useState("");
-  const [nickName, setNickName] = useState("");
+  const [password, setPassword] = useState("");
+  const [nickname, setNickname] = useState("");
+  const dispatch = useDispatch();
+
+  const fetchTodos = async () => {
+    const { data } = await api.get("https://moneyfulpublicpolicy.co.kr");
+    console.log(data); // 서버로부터 fetching한 데이터를 useState의 state로 set 합니다.
+  };
+
+  // 생성한 함수를 컴포넌트가 mount 됐을 떄 실행하기 위해 useEffect를 사용합니다.
+  useEffect(() => {
+    // effect 구문에 생성한 함수를 넣어 실행합니다.
+    fetchTodos();
+  }, []);
 
   const authChange = () => {
     setClick(!click);
@@ -28,7 +44,7 @@ function Login() {
       alert("비밀번호는 15글자까지만 입력이 가능합니다!");
       return;
     }
-    setPw(enteredPw);
+    setPassword(enteredPw);
   };
 
   const nickNameEventHandler = (e) => {
@@ -38,33 +54,48 @@ function Login() {
       return;
     }
 
-    setNickName(enteredNickName);
+    setNickname(enteredNickName);
   };
-
-  const loginEventHandler = (e) => {
-    e.preventDefault();
-    if (id.length < 4 || pw.length < 4) {
-      alert("아이디 및 비밀번호는 4글자 이상 작성해주셔야합니다!");
-      return;
-    }
-
-    alert("로그인 버튼 클릭");
-  };
-
+  //회원가입
   const joinEventHandler = (e) => {
     e.preventDefault();
 
-    if (id.length < 4 || pw.length < 4) {
+    if (id.length < 4 || password.length < 4) {
       alert("아이디 및 비밀번호는 4글자 이상 작성해주셔야합니다!");
       return;
     }
-    if (nickName.length < 1) {
+    if (nickname.length < 1) {
       alert("최소 한글자 이상은 닉네임을 작성해주세요!");
       return;
     }
 
     alert("회원가입이 완료됐습니다! 로그인을 해주세요!");
     setClick(!click);
+
+    //회원가입 내용 DB에 저장
+    api.post("https://moneyfulpublicpolicy.co.kr/register", {
+      id,
+      password,
+      nickname,
+    });
+  };
+
+  //로그인
+  const loginEventHandler = (e) => {
+    e.preventDefault();
+    if (id.length < 4 || password.length < 4) {
+      alert("아이디 및 비밀번호는 4글자 이상 작성해주셔야합니다!");
+      return;
+    }
+
+    alert("로그인 버튼 클릭");
+
+    //로그인 정보 요청
+    // api.post("https://moneyfulpublicpolicy.co.kr/login", {
+    //   id,
+    //   password,
+    // });
+    dispatch(__loginUser({ id, password }));
   };
 
   return (
@@ -88,7 +119,7 @@ function Login() {
             <AuthInput
               type="text"
               placeholder="비밀번호(4~15글자)"
-              value={pw}
+              value={password}
               onChange={pwEventHandler}
             />
 
@@ -117,13 +148,13 @@ function Login() {
             <AuthInput
               type="text"
               placeholder="비밀번호(4~15글자)"
-              value={pw}
+              value={password}
               onChange={pwEventHandler}
             />
             <AuthInput
               type="text"
               placeholder="닉네임(1~10글자)"
-              value={nickName}
+              value={nickname}
               onChange={nickNameEventHandler}
             />
             <ButtonWrap>
