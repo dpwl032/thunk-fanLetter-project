@@ -11,7 +11,6 @@ const NonAuthLayout = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
-    console.log("테스트입미다.", token);
     if (token) {
       //   navigator.push("/");
       navigator("/");

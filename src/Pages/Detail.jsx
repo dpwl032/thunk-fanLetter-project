@@ -173,5 +173,5 @@ const ButtonWrap = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  alignitems: center;
+  align-items: center;
 `;

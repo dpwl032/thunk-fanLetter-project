@@ -4,6 +4,7 @@ import { addLetter } from "../redux/modules/lettersSlice";
 import { useState } from "react";
 
 function LetterForm() {
+  const nickname = localStorage.getItem("loginedName");
   const celebrityList = ["지젤", "카리나", "윈터", "닝닝"];
   const [writedTo, setWritedTo] = useState("지젤");
   const today = new Date();
@@ -23,17 +24,11 @@ function LetterForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const nickname = e.target.nickname.value;
+
     const content = e.target.content.value;
 
-    if (!nickname || !content) {
+    if (!content) {
       alert("빈칸없이 내용을 입력해주세요!");
-      return;
-    }
-
-    if (nickname.length >= 20) {
-      alert("20글자를 초과할 수 없습니다");
-      nickname.current.focus();
       return;
     }
 
@@ -65,7 +60,7 @@ function LetterForm() {
         <InputAndBtn onSubmit={handleSubmit}>
           <InputFormSt>
             닉네임 : &nbsp;
-            <input
+            {/* <input
               name="nickname"
               type="content"
               placeholder="최대 20글자까지 작성할 수 있습니다."
@@ -73,7 +68,8 @@ function LetterForm() {
                 width: "290px",
                 height: "20px",
               }}
-            />
+            /> */}
+            {nickname}
           </InputFormSt>
           <TextFormSt>
             내용 : &nbsp;

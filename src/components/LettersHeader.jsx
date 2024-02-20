@@ -3,13 +3,20 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 function LettersHeader() {
+  const logout = () => {
+    alert("로그아웃됐습니다.");
+    localStorage.removeItem("accessToken");
+  };
   return (
     <>
       <StHeader>
         <Link to="/">
           <HeaderBtn>YJ's made</HeaderBtn>
         </Link>
-        <HeaderBtn>SIGN UP</HeaderBtn>
+        <div>
+          <HeaderBtn>MY PAGE</HeaderBtn>
+          <HeaderBtn onClick={logout}>SIGN OUT</HeaderBtn>
+        </div>
       </StHeader>
     </>
   );

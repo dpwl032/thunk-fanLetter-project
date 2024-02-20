@@ -13,13 +13,19 @@ export const __loginUser = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const { id, password } = payload;
-      const user = await api.post("https://moneyfulpublicpolicy.co.kr/login", {
-        id,
-        password,
-      });
+      const user = await api.post(
+        "https://moneyfulpublicpolicy.co.kr/login?expiresIn=1m",
+        {
+          id,
+          password,
+        }
+      );
 
+      console.log(user.data);
+      const loginedName = user.data.nickname;
       const userToken = user.data.accessToken;
       localStorage.setItem("accessToken", JSON.stringify(userToken));
+      localStorage.setItem("loginedName", JSON.stringify(loginedName));
       alert("로그인완료");
       return thunkAPI.fulfillWithValue(user.data);
     } catch (error) {
