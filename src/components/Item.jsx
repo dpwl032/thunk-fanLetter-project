@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import proImg from "assets/9720037.jpg";
-
+import { __getLetter } from "../redux/modules/lettersSlice";
+import { useEffect } from "react";
+import { Dispatch } from "redux";
 function Item() {
   //redux
   const name = useSelector((state) => state.name);
@@ -11,6 +13,12 @@ function Item() {
   const filteredLetters = letters.filter((data) => {
     return data.writedTo == name;
   });
+
+  //redux- thunk
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(__getLetter());
+  }, [dispatch]);
 
   return (
     <>

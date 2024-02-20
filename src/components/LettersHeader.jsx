@@ -1,11 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function LettersHeader() {
   const logout = () => {
     alert("로그아웃됐습니다.");
     localStorage.removeItem("accessToken");
+  };
+
+  const navigator = useNavigate();
+
+  const goToMypage = () => {
+    navigator("/my");
   };
   return (
     <>
@@ -14,7 +21,7 @@ function LettersHeader() {
           <HeaderBtn>YJ's made</HeaderBtn>
         </Link>
         <div>
-          <HeaderBtn>MY PAGE</HeaderBtn>
+          <HeaderBtn onClick={goToMypage}>MY PAGE</HeaderBtn>
           <HeaderBtn onClick={logout}>SIGN OUT</HeaderBtn>
         </div>
       </StHeader>

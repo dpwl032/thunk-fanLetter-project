@@ -1,3 +1,27 @@
 {
-  "letters": []
+  "letters": [
+    {
+      "id": "",
+      "nickname": "",
+      "content": "",
+      "avatar": "",
+      "writedTo": "",
+      "createdAt": "",
+      "userId": ""
+    },
+    {
+      "id": "de9e7777-ef6b-4f17-9416-17c06c85e8cd",
+      "createdAt": "2024년 2월 21일",
+      "nickname": "\"홍길동\"",
+      "content": "1234",
+      "writedTo": "지젤"
+    },
+    {
+      "id": "6feef6e2-ed96-490e-b780-e0890a093b5e",
+      "createdAt": "2024년 2월 21일",
+      "nickname": "\"홍길동\"",
+      "content": "zzzzzz",
+      "writedTo": "지젤"
+    }
+  ]
 }

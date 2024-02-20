@@ -7,6 +7,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteLetterItem, editLetter } from "../redux/modules/lettersSlice";
+import { __deleteLetter, __editLetter } from "../redux/modules/lettersSlice";
 
 function Detail() {
   const [click, setClick] = useState(false);
@@ -33,7 +34,7 @@ function Detail() {
       return;
     }
 
-    dispatch(editLetter({ id, editContent }));
+    dispatch(__editLetter({ id, editContent }));
     setClick(false);
     alert("수정이 완료됐습니다.");
     navigate("/");
@@ -42,7 +43,7 @@ function Detail() {
   // 삭제버튼
   const deleteLetter = (id) => {
     alert("삭제하시겠습니까?");
-    dispatch(deleteLetterItem(id));
+    dispatch(__deleteLetter(id));
     navigate("/");
   };
 

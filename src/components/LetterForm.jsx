@@ -2,9 +2,13 @@ import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { addLetter } from "../redux/modules/lettersSlice";
 import { useState } from "react";
+import axios from "axios";
+import { useEffect } from "react";
+import { __addLetter } from "../redux/modules/lettersSlice";
 
 function LetterForm() {
   const nickname = localStorage.getItem("loginedName");
+
   const celebrityList = ["지젤", "카리나", "윈터", "닝닝"];
   const [writedTo, setWritedTo] = useState("지젤");
   const today = new Date();
@@ -50,7 +54,8 @@ function LetterForm() {
   };
 
   const onSubmitLetter = (nextLetter) => {
-    dispatch(addLetter(nextLetter));
+    // dispatch(addLetter(nextLetter));
+    dispatch(__addLetter(nextLetter));
   };
 
   return (
