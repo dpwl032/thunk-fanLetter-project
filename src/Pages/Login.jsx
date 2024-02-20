@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import { useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+
 import api from "axios";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { __loginUser } from "../redux/modules/authSlice";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [click, setClick] = useState(false);
@@ -12,17 +15,9 @@ function Login() {
   const [password, setPassword] = useState("");
   const [nickname, setNickname] = useState("");
   const dispatch = useDispatch();
+  const navigator = useNavigate();
 
-  const fetchTodos = async () => {
-    const { data } = await api.get("https://moneyfulpublicpolicy.co.kr");
-    console.log(data); // 서버로부터 fetching한 데이터를 useState의 state로 set 합니다.
-  };
-
-  // 생성한 함수를 컴포넌트가 mount 됐을 떄 실행하기 위해 useEffect를 사용합니다.
-  useEffect(() => {
-    // effect 구문에 생성한 함수를 넣어 실행합니다.
-    fetchTodos();
-  }, []);
+  const { isLoding, error } = useSelector((state) => state.auth);
 
   const authChange = () => {
     setClick(!click);
@@ -56,6 +51,7 @@ function Login() {
 
     setNickname(enteredNickName);
   };
+
   //회원가입
   const joinEventHandler = (e) => {
     e.preventDefault();
@@ -69,15 +65,21 @@ function Login() {
       return;
     }
 
-    alert("회원가입이 완료됐습니다! 로그인을 해주세요!");
-    setClick(!click);
-
     //회원가입 내용 DB에 저장
-    api.post("https://moneyfulpublicpolicy.co.kr/register", {
-      id,
-      password,
-      nickname,
-    });
+    api
+      .post("https://moneyfulpublicpolicy.co.kr/register", {
+        id,
+        password,
+        nickname,
+      })
+      .then((response) => {
+        setClick(false);
+        alert("회원가입완료!");
+      })
+      .catch((error) => {
+        toast(error.response.data.message);
+        setClick(true);
+      });
   };
 
   //로그인
@@ -88,14 +90,15 @@ function Login() {
       return;
     }
 
-    alert("로그인 버튼 클릭");
-
-    //로그인 정보 요청
-    // api.post("https://moneyfulpublicpolicy.co.kr/login", {
-    //   id,
-    //   password,
-    // });
     dispatch(__loginUser({ id, password }));
+
+    if (error) {
+      toast(error.response.data.message);
+      return;
+    }
+
+    //로그인 한 상태를 유지하여 홈화면으로 이동
+    navigator("/");
   };
 
   return (
@@ -125,7 +128,7 @@ function Login() {
 
             <ButtonWrap>
               <AuthBtn>로그인</AuthBtn>
-
+              <ToastContainer />
               <ChangeBtn onClick={authChange}>회원가입 하러가기</ChangeBtn>
             </ButtonWrap>
           </AuthChangeForm>
@@ -159,6 +162,7 @@ function Login() {
             />
             <ButtonWrap>
               <AuthBtn>회원가입</AuthBtn>
+              <ToastContainer />
               <ChangeBtn onClick={authChange}>로그인 하러가기</ChangeBtn>
             </ButtonWrap>
           </AuthChangeForm>

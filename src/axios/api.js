@@ -11,14 +11,13 @@ instance.interceptors.request.use(
   },
   function (error) {
     console.log("인터셉터 요청 오류!");
-
     return Promise.reject(error);
   }
 );
 
 instance.interceptors.response.use(
   function (response) {
-    console.log("응답받기성공");
+    console.log("응답실패");
     return response;
   },
   function (error) {
