@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { addLetter } from "../redux/modules/letters";
+import { addLetter } from "../redux/modules/lettersSlice";
 import { useState } from "react";
 
 function LetterForm() {

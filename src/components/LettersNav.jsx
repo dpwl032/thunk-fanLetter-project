@@ -3,7 +3,7 @@ import styled from "styled-components";
 import LetterForm from "components/LetterForm";
 import Item from "./Item";
 import { useSelector, useDispatch } from "react-redux";
-import { nameSelect } from "../redux/modules/name";
+import { nameSelect } from "../redux/modules/nameSlice";
 
 function LettersNav() {
   //redux

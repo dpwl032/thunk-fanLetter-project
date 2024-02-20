@@ -1,13 +1,12 @@
-import { createStore, combineReducers } from "redux";
-import lettersReducer from "../modules/letters";
-import nameReducer from "../modules/name";
-import { devToolsEnhancer } from "redux-devtools-extension";
+import { configureStore } from "@reduxjs/toolkit";
+import lettersSlice from "../modules/lettersSlice";
+import nameSlice from "../modules/nameSlice";
 
-const rootReducer = combineReducers({
-  letters: lettersReducer,
-  name: nameReducer,
+const store = configureStore({
+  reducer: {
+    letters: lettersSlice,
+    name: nameSlice,
+  },
 });
-
-const store = createStore(rootReducer, devToolsEnhancer());
 
 export default store;
