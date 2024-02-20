@@ -4,8 +4,66 @@ import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [click, setClick] = useState(false);
+  const [id, setId] = useState("");
+  const [pw, setPw] = useState("");
+  const [nickName, setNickName] = useState("");
 
   const authChange = () => {
+    setClick(!click);
+  };
+
+  const idEventHandler = (e) => {
+    const enteredId = e.target.value;
+
+    if (enteredId.length > 10) {
+      alert("아이디는 10글자까지만 입력이 가능합니다!");
+      return;
+    }
+
+    setId(enteredId);
+  };
+  const pwEventHandler = (e) => {
+    const enteredPw = e.target.value;
+    if (enteredPw.length > 15) {
+      alert("비밀번호는 15글자까지만 입력이 가능합니다!");
+      return;
+    }
+    setPw(enteredPw);
+  };
+
+  const nickNameEventHandler = (e) => {
+    const enteredNickName = e.target.value;
+    if (enteredNickName.length > 11) {
+      alert("닉네임은 10글자까지만 입력이 가능합니다!");
+      return;
+    }
+
+    setNickName(enteredNickName);
+  };
+
+  const loginEventHandler = (e) => {
+    e.preventDefault();
+    if (id.length < 4 || pw.length < 4) {
+      alert("아이디 및 비밀번호는 4글자 이상 작성해주셔야합니다!");
+      return;
+    }
+
+    alert("로그인 버튼 클릭");
+  };
+
+  const joinEventHandler = (e) => {
+    e.preventDefault();
+
+    if (id.length < 4 || pw.length < 4) {
+      alert("아이디 및 비밀번호는 4글자 이상 작성해주셔야합니다!");
+      return;
+    }
+    if (nickName.length < 1) {
+      alert("최소 한글자 이상은 닉네임을 작성해주세요!");
+      return;
+    }
+
+    alert("회원가입이 완료됐습니다! 로그인을 해주세요!");
     setClick(!click);
   };
 
@@ -13,34 +71,61 @@ function Login() {
     <>
       {!click ? (
         <StAuthWrap>
-          <AuthChangeForm>
+          <AuthChangeForm onSubmit={loginEventHandler}>
             <p>Yj's fan Letter</p>
             <section>
               <p>기존 계정으로 </p>
               <p>로그인이나 회원가입을 해주세요</p>
             </section>
 
-            <AuthInput type="text" placeholder="아이디(4~10글자)" />
-            <AuthInput type="text" placeholder="비밀번호(4~15글자)" />
+            <AuthInput
+              type="text"
+              placeholder="아이디(4~10글자)"
+              value={id}
+              onChange={idEventHandler}
+              name="id"
+            />
+            <AuthInput
+              type="text"
+              placeholder="비밀번호(4~15글자)"
+              value={pw}
+              onChange={pwEventHandler}
+            />
 
             <ButtonWrap>
               <AuthBtn>로그인</AuthBtn>
+
               <ChangeBtn onClick={authChange}>회원가입 하러가기</ChangeBtn>
             </ButtonWrap>
           </AuthChangeForm>
         </StAuthWrap>
       ) : (
         <StAuthWrap>
-          <AuthChangeForm>
+          <AuthChangeForm onSubmit={joinEventHandler}>
             <p>Yj's fan Letter</p>
             <section>
               <p>기존 계정으로 </p>
               <p>로그인이나 회원가입을 해주세요</p>
             </section>
 
-            <AuthInput type="text" placeholder="아이디(4~10글자)" />
-            <AuthInput type="text" placeholder="비밀번호(4~15글자)" />
-            <AuthInput type="text" placeholder="닉네임(1~10글자)" />
+            <AuthInput
+              type="text"
+              placeholder="아이디(4~10글자)"
+              value={id}
+              onChange={idEventHandler}
+            />
+            <AuthInput
+              type="text"
+              placeholder="비밀번호(4~15글자)"
+              value={pw}
+              onChange={pwEventHandler}
+            />
+            <AuthInput
+              type="text"
+              placeholder="닉네임(1~10글자)"
+              value={nickName}
+              onChange={nickNameEventHandler}
+            />
             <ButtonWrap>
               <AuthBtn>회원가입</AuthBtn>
               <ChangeBtn onClick={authChange}>로그인 하러가기</ChangeBtn>
@@ -64,7 +149,7 @@ const StAuthWrap = styled.div`
   background-color: #f8f5f5ce;
 `;
 
-const AuthChangeForm = styled.div`
+const AuthChangeForm = styled.form`
   border: 1px solid #b9aeae9f;
   border-radius: 20px;
   width: 500px;
