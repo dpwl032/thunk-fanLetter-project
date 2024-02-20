@@ -10,18 +10,28 @@
       "userId": ""
     },
     {
-      "id": "de9e7777-ef6b-4f17-9416-17c06c85e8cd",
+      "id": "9c04eaf5-b193-47a1-9dd7-503da16fdf76",
+      "content": "테스트",
       "createdAt": "2024년 2월 21일",
-      "nickname": "\"홍길동\"",
-      "content": "1234",
       "writedTo": "지젤"
     },
     {
-      "id": "6feef6e2-ed96-490e-b780-e0890a093b5e",
+      "id": "57622a0c-0a45-498e-8694-8dd2d0be0a30",
+      "nickname": "홍길동",
+      "content": "22222",
       "createdAt": "2024년 2월 21일",
-      "nickname": "\"홍길동\"",
-      "content": "zzzzzz",
-      "writedTo": "지젤"
+      "avatar": null,
+      "writedTo": "지젤",
+      "userId": "asarcsd11"
+    },
+    {
+      "id": "a18cf094-bd7f-414a-a93d-95aecf615742",
+      "nickname": "홍길동",
+      "content": "글쓰기 테스트",
+      "createdAt": "2024년 2월 21일",
+      "avatar": null,
+      "writedTo": "윈터",
+      "userId": "asarcsd11"
     }
   ]
 }

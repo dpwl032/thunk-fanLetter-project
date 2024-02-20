@@ -3,7 +3,7 @@ import styled from "styled-components";
 import LettersNav from "../components/LettersNav";
 import LettersHeader from "../components/LettersHeader";
 import MusicVideo from "../components/MusicVideo";
-
+import { useSelector } from "react-redux";
 function LettersLayout() {
   return (
     <>

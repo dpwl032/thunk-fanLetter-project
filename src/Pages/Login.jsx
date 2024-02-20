@@ -17,7 +17,7 @@ function Login() {
   const dispatch = useDispatch();
   const navigator = useNavigate();
 
-  const { isLoding, error } = useSelector((state) => state.auth);
+  const { isLogin, error } = useSelector((state) => state.auth);
 
   const authChange = () => {
     setClick(!click);
@@ -96,10 +96,12 @@ function Login() {
       toast(error.response.data.message);
       return;
     }
-
-    //로그인 한 상태를 유지하여 홈화면으로 이동
-    navigator("/");
   };
+
+  //로그인 한 상태를 유지하여 홈화면으로 이동
+  if (isLogin) {
+    navigator("/");
+  }
 
   return (
     <>

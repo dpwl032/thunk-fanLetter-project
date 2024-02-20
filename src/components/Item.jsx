@@ -9,12 +9,9 @@ import { Dispatch } from "redux";
 function Item() {
   //redux
   const name = useSelector((state) => state.name);
-  const letters = useSelector((state) => state.letters);
-  const filteredLetters = letters.filter((data) => {
-    return data.writedTo == name;
-  });
 
-  //redux- thunk
+  //redux thunk
+  const { letters } = useSelector((state) => state.letters);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(__getLetter());
@@ -24,7 +21,7 @@ function Item() {
     <>
       <div style={{ backgroundColor: "black" }}>
         <StItemUl>
-          {filteredLetters.map((data) => {
+          {letters.map((data) => {
             return (
               <StItemLi key={data.id}>
                 <Link
@@ -55,7 +52,7 @@ function Item() {
           })}
         </StItemUl>
 
-        {!filteredLetters.length ? (
+        {!letters.length ? (
           <NoneLetter>
             {" "}
             현재 작성된 편지가 없습니다. [{name}]에게 팬레터를 보내주세요!

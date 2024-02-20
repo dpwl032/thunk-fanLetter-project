@@ -7,9 +7,22 @@ import { useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteLetterItem, editLetter } from "../redux/modules/lettersSlice";
-import { __deleteLetter, __editLetter } from "../redux/modules/lettersSlice";
+import {
+  __deleteLetter,
+  __editLetter,
+  __getLetter,
+} from "../redux/modules/lettersSlice";
+import { useEffect } from "react";
 
 function Detail() {
+  const token = localStorage.getItem("accessToken");
+  if (!token) {
+    localStorage.removeItem("accessToken");
+    navigator("/login");
+  }
+  const dispatch = useDispatch();
+  //redux
+
   const [click, setClick] = useState(false);
   //수정내용 state
   const [editContent, setEditContent] = useState("");
@@ -17,12 +30,14 @@ function Detail() {
   const params = useParams();
   const navigate = useNavigate();
 
-  //redux
-  const dispatch = useDispatch();
-  const letter = useSelector((state) => state.letters);
+  const { letters } = useSelector((state) => state.letters);
+
+  useEffect(() => {
+    dispatch(__getLetter());
+  }, [dispatch]);
 
   //전체 letter 중에서 넘겨오는 id와  일치한 item만 보여주기
-  const foundLetter = letter.find((letter) => {
+  const foundLetter = letters.find((letter) => {
     return letter.id === params.id;
   });
 

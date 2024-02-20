@@ -1,13 +1,39 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import LettersHeader from "components/LettersHeader";
-
+import { __userCheck } from "../redux/modules/authSlice";
+import { useSelector, useDispatch } from "react-redux";
 function MyPage() {
   const [click, setClick] = useState(false);
+  const { isLogin, auth, check } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  dispatch(__userCheck(auth.accessToken));
+
+  console.log("마이페이지", check);
 
   const startEdit = () => {
     setClick(true);
   };
+
+  const token = localStorage.getItem("accessToken");
+  if (token) {
+    // 이미지파일을 FormData에 담는 방법
+
+    const formData = new FormData();
+    // avatar와 nickname 중 하나 또느 모두 변경 가능
+    // formData.append("avatar", imgFile);
+    // formData.append("nickname", nickname);
+
+    // 요청 시 Content-Type에 유의
+    // const response = await axios.patch(`${BASE_URL}/profile`, formData, {
+    //       headers: {
+    //         "Content-Type": "multipart/form-data",
+    //         Authorization: `Bearer ${accessToken}`,
+    //       },
+    //     }
+    // );
+  }
+
   return (
     <>
       <LettersHeader />
@@ -24,8 +50,12 @@ function MyPage() {
                 borderRadius: "100px",
               }}
             ></div>
-            <p>아이디</p>
-            {!click ? <p>닉네임</p> : <AuthInput type="text" />}
+            <p>아이디 : {check.id}</p>
+            {!click ? (
+              <p>닉네임 : {check.nickname}</p>
+            ) : (
+              <AuthInput type="text" />
+            )}
           </section>
 
           <ButtonWrap>

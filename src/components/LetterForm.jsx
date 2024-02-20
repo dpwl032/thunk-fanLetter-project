@@ -1,13 +1,22 @@
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { addLetter } from "../redux/modules/lettersSlice";
-import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
+import { useState } from "react";
+
 import { __addLetter } from "../redux/modules/lettersSlice";
+import { __userCheck } from "../redux/modules/authSlice";
 
 function LetterForm() {
-  const nickname = localStorage.getItem("loginedName");
+  const { isLogin, auth } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  // console.log("왜 true 안되냐", isLogin);
+  // console.log("로그인정보 들고오나?", auth);
+  //유저정보 확인
+  dispatch(__userCheck(auth.accessToken));
+
+  const formNickname = localStorage.getItem("nickname");
 
   const celebrityList = ["지젤", "카리나", "윈터", "닝닝"];
   const [writedTo, setWritedTo] = useState("지젤");
@@ -24,7 +33,6 @@ function LetterForm() {
 
   //redux
   const name = useSelector((state) => state.name);
-  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,11 +50,14 @@ function LetterForm() {
     }
 
     onSubmitLetter({
-      createdAt: dateString,
-      nickname,
       id: crypto.randomUUID(),
+      nickname: auth.nickname,
       content,
+      createdAt: dateString,
+      avatar: auth.avatar,
       writedTo,
+      createdAt: dateString,
+      userId: auth.userId,
     });
     e.target.reset();
 
@@ -65,16 +76,7 @@ function LetterForm() {
         <InputAndBtn onSubmit={handleSubmit}>
           <InputFormSt>
             닉네임 : &nbsp;
-            {/* <input
-              name="nickname"
-              type="content"
-              placeholder="최대 20글자까지 작성할 수 있습니다."
-              style={{
-                width: "290px",
-                height: "20px",
-              }}
-            /> */}
-            {nickname}
+            {formNickname}
           </InputFormSt>
           <TextFormSt>
             내용 : &nbsp;

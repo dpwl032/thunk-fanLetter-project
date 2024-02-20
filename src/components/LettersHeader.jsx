@@ -2,14 +2,18 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import { useSelector } from "react-redux";
+import { useState } from "react";
 function LettersHeader() {
+  const { isLogin, auth } = useSelector((state) => state.auth);
+  const [login, setLogin] = useState(true);
+  const navigator = useNavigate();
   const logout = () => {
     alert("로그아웃됐습니다.");
     localStorage.removeItem("accessToken");
+    setLogin(false);
+    navigator("/login");
   };
-
-  const navigator = useNavigate();
 
   const goToMypage = () => {
     navigator("/my");

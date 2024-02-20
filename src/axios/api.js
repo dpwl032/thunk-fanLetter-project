@@ -2,6 +2,10 @@ import axios from "axios";
 
 const instance = axios.create({
   baseURL: "https://moneyfulpublicpolicy.co.kr",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${accessToken}`,
+  },
 });
 
 instance.interceptors.request.use(
@@ -17,7 +21,7 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   function (response) {
-    console.log("응답실패");
+    console.log("응답성공");
     return response;
   },
   function (error) {
