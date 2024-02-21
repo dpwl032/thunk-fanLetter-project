@@ -6,9 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 function MyPage() {
   const [click, setClick] = useState(false);
   const [changeName, setChangeName] = useState("");
-  const { auth, check } = useSelector((state) => state.auth);
+  const { auth } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  // dispatch(__userCheck(auth.accessToken));
 
   console.log("auth", auth);
 
@@ -25,18 +24,6 @@ function MyPage() {
     console.log("밍", changeName);
   };
   const formData = new FormData();
-  // avatar와 nickname 중 하나 또느 모두 변경 가능
-  // formData.append("avatar", imgFile);
-  // formData.append("nickname", nickname);
-
-  // 요청 시 Content-Type에 유의
-  // const response = await axios.patch(`${BASE_URL}/profile`, formData, {
-  //       headers: {
-  //         "Content-Type": "multipart/form-data",
-  //         Authorization: `Bearer ${accessToken}`,
-  //       },
-  //     }
-  // );
 
   return (
     <>

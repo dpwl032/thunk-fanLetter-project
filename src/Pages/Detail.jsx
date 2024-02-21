@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteLetterItem, editLetter } from "../redux/modules/lettersSlice";
 import {
   __deleteLetter,
   __editLetter,
