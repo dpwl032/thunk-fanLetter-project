@@ -1,11 +1,12 @@
 # 팬레터 프로젝트
 
 > 스파르타 리덕스 심화주차 개인과제 <br/>
-> <img src="/assets/readme/home.png"  width="700" height="370">
 
 ## 주제
 
 인증 서비스가 들어간 그룹 아티스트 팬레터함
+
+<img src="/assets/readme/home.png"  width="500" height="370">
 
 ## 개발기간
 
