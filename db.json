@@ -1,0 +1,49 @@
+{
+  "letters": [
+    {
+      "id": "",
+      "nickname": "",
+      "content": "",
+      "avatar": "",
+      "writedTo": "",
+      "createdAt": "",
+      "userId": ""
+    },
+    {
+      "id": "a18cf094-bd7f-414a-a93d-95aecf615742",
+      "nickname": "홍길동",
+      "content": "글쓰기 테스트",
+      "createdAt": "2024년 2월 21일",
+      "avatar": null,
+      "writedTo": "윈터",
+      "userId": "asarcsd11"
+    },
+    {
+      "id": "0322fc85-eb8c-4407-968f-901cd494011a",
+      "nickname": "홍길동",
+      "content": "1",
+      "createdAt": "2024년 2월 21일 오전 9:56:40",
+      "avatar": null,
+      "writedTo": "지젤",
+      "userId": "asarcsd11"
+    },
+    {
+      "id": "e71077c1-0cb8-4be8-96da-5dd1d6bc3865",
+      "nickname": "1",
+      "content": "3",
+      "createdAt": "2024년 2월 21일 오후 12:31:17",
+      "avatar": null,
+      "writedTo": "지젤",
+      "userId": "test11dbss"
+    },
+    {
+      "id": "67440a88-5951-4ede-b3d7-a831fdf226a6",
+      "nickname": "홍길동",
+      "content": "작성 테스트",
+      "createdAt": "2024년 2월 21일 오후 12:50:33",
+      "avatar": null,
+      "writedTo": "카리나",
+      "userId": "asarcsd11"
+    }
+  ]
+}

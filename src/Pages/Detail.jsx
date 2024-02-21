@@ -6,9 +6,23 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteLetterItem, editLetter } from "../redux/modules/letters";
+import {
+  __deleteLetter,
+  __editLetter,
+  __getLetter,
+} from "../redux/modules/lettersSlice";
+import { useEffect } from "react";
 
 function Detail() {
+  const token = localStorage.getItem("accessToken");
+  if (!token) {
+    localStorage.removeItem("accessToken");
+    navigator("/login");
+  }
+  const dispatch = useDispatch();
+  const { auth } = useSelector((state) => state.auth);
+  //redux
+
   const [click, setClick] = useState(false);
   //수정내용 state
   const [editContent, setEditContent] = useState("");
@@ -16,12 +30,14 @@ function Detail() {
   const params = useParams();
   const navigate = useNavigate();
 
-  //redux
-  const dispatch = useDispatch();
-  const letter = useSelector((state) => state.letters);
+  const { letters } = useSelector((state) => state.letters);
+
+  useEffect(() => {
+    dispatch(__getLetter());
+  }, [dispatch]);
 
   //전체 letter 중에서 넘겨오는 id와  일치한 item만 보여주기
-  const foundLetter = letter.find((letter) => {
+  const foundLetter = letters.find((letter) => {
     return letter.id === params.id;
   });
 
@@ -33,7 +49,7 @@ function Detail() {
       return;
     }
 
-    dispatch(editLetter({ id, editContent }));
+    dispatch(__editLetter({ id, editContent }));
     setClick(false);
     alert("수정이 완료됐습니다.");
     navigate("/");
@@ -42,7 +58,7 @@ function Detail() {
   // 삭제버튼
   const deleteLetter = (id) => {
     alert("삭제하시겠습니까?");
-    dispatch(deleteLetterItem(id));
+    dispatch(__deleteLetter(id));
     navigate("/");
   };
 
@@ -72,15 +88,21 @@ function Detail() {
             )}
             <hr />
             <ButtonWrap>
-              {click ? (
-                ""
+              {nickname === auth.nickname ? (
+                !click ? (
+                  <>
+                    <DetailBtn onClick={() => setClick(true)}>
+                      수정하기
+                    </DetailBtn>
+                    <DetailBtn onClick={() => deleteLetter(id)}>
+                      삭제하기
+                    </DetailBtn>
+                  </>
+                ) : (
+                  ""
+                )
               ) : (
-                <>
-                  <DetailBtn onClick={() => setClick(true)}>수정하기</DetailBtn>
-                  <DetailBtn onClick={() => deleteLetter(id)}>
-                    삭제하기
-                  </DetailBtn>
-                </>
+                ""
               )}
 
               {click ? (
@@ -173,5 +195,5 @@ const ButtonWrap = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  alignitems: center;
+  align-items: center;
 `;

@@ -1,9 +1,16 @@
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { addLetter } from "../redux/modules/letters";
+import { addLetter } from "../redux/modules/lettersSlice";
+import axios from "axios";
+import { useEffect } from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { __addLetter } from "../redux/modules/lettersSlice";
 
 function LetterForm() {
+  const dispatch = useDispatch();
+  const navigator = useNavigate();
+  const { auth } = useSelector((state) => state.auth);
   const celebrityList = ["지젤", "카리나", "윈터", "닝닝"];
   const [writedTo, setWritedTo] = useState("지젤");
   const today = new Date();
@@ -11,6 +18,9 @@ function LetterForm() {
     year: "numeric",
     month: "long",
     day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
   });
 
   const onChangeName = (e) => {
@@ -19,21 +29,21 @@ function LetterForm() {
 
   //redux
   const name = useSelector((state) => state.name);
-  const dispatch = useDispatch();
+
+  const accessToken = localStorage.getItem("accessToken");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const nickname = e.target.nickname.value;
-    const content = e.target.content.value;
 
-    if (!nickname || !content) {
-      alert("빈칸없이 내용을 입력해주세요!");
+    if (!accessToken) {
+      alert("토큰이 없어용");
       return;
     }
 
-    if (nickname.length >= 20) {
-      alert("20글자를 초과할 수 없습니다");
-      nickname.current.focus();
+    const content = e.target.content.value;
+
+    if (!content) {
+      alert("빈칸없이 내용을 입력해주세요!");
       return;
     }
 
@@ -43,19 +53,22 @@ function LetterForm() {
     }
 
     onSubmitLetter({
-      createdAt: dateString,
-      nickname,
       id: crypto.randomUUID(),
+      nickname: auth.nickname,
       content,
+      createdAt: dateString,
+      avatar: auth.avatar,
       writedTo,
+      createdAt: dateString,
+      userId: auth.userId,
     });
     e.target.reset();
 
     alert("팬레터가 등록됐습니다!");
   };
 
-  const onSubmitLetter = (nextLetter) => {
-    dispatch(addLetter(nextLetter));
+  const onSubmitLetter = async (nextLetter) => {
+    dispatch(__addLetter(nextLetter));
   };
 
   return (
@@ -65,15 +78,7 @@ function LetterForm() {
         <InputAndBtn onSubmit={handleSubmit}>
           <InputFormSt>
             닉네임 : &nbsp;
-            <input
-              name="nickname"
-              type="content"
-              placeholder="최대 20글자까지 작성할 수 있습니다."
-              style={{
-                width: "290px",
-                height: "20px",
-              }}
-            />
+            {auth.nickname}
           </InputFormSt>
           <TextFormSt>
             내용 : &nbsp;

@@ -1,16 +1,30 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import proImg from "assets/9720037.jpg";
-
+import { __getLetter } from "../redux/modules/lettersSlice";
+import { useEffect } from "react";
+import { useState } from "react";
 function Item() {
   //redux
   const name = useSelector((state) => state.name);
-  const letters = useSelector((state) => state.letters);
+
+  //redux thunk
+  const { letters, isLoading } = useSelector((state) => state.letters);
+  const [isRendered, setIsRendered] = useState(false);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(__getLetter());
+  }, [dispatch]);
+
   const filteredLetters = letters.filter((data) => {
     return data.writedTo == name;
   });
+
+  if (isLoading) {
+    return <div>로딩중입니다...</div>;
+  }
 
   return (
     <>

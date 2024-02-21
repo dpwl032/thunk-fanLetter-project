@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import LettersNav from "./LettersNav";
-import LettersHeader from "./LettersHeader";
-import MusicVideo from "./MusicVideo";
-
+import LettersNav from "../components/LettersNav";
+import LettersHeader from "../components/LettersHeader";
+import MusicVideo from "../components/MusicVideo";
+import { useSelector } from "react-redux";
 function LettersLayout() {
   return (
     <>
