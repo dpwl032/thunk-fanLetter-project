@@ -21,6 +21,7 @@ function Detail() {
     navigator("/login");
   }
   const dispatch = useDispatch();
+  const { auth } = useSelector((state) => state.auth);
   //redux
 
   const [click, setClick] = useState(false);
@@ -88,15 +89,21 @@ function Detail() {
             )}
             <hr />
             <ButtonWrap>
-              {click ? (
-                ""
+              {nickname === auth.nickname ? (
+                !click ? (
+                  <>
+                    <DetailBtn onClick={() => setClick(true)}>
+                      수정하기
+                    </DetailBtn>
+                    <DetailBtn onClick={() => deleteLetter(id)}>
+                      삭제하기
+                    </DetailBtn>
+                  </>
+                ) : (
+                  ""
+                )
               ) : (
-                <>
-                  <DetailBtn onClick={() => setClick(true)}>수정하기</DetailBtn>
-                  <DetailBtn onClick={() => deleteLetter(id)}>
-                    삭제하기
-                  </DetailBtn>
-                </>
+                ""
               )}
 
               {click ? (

@@ -5,34 +5,38 @@ import { __userCheck } from "../redux/modules/authSlice";
 import { useSelector, useDispatch } from "react-redux";
 function MyPage() {
   const [click, setClick] = useState(false);
-  const { isLogin, auth, check } = useSelector((state) => state.auth);
+  const [changeName, setChangeName] = useState("");
+  const { auth, check } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  dispatch(__userCheck(auth.accessToken));
+  // dispatch(__userCheck(auth.accessToken));
 
-  console.log("마이페이지", check);
+  console.log("auth", auth);
 
   const startEdit = () => {
-    setClick(true);
+    setClick(!click);
   };
 
-  const token = localStorage.getItem("accessToken");
-  if (token) {
-    // 이미지파일을 FormData에 담는 방법
+  const changeNickname = (e) => {
+    setChangeName(e.target.value);
+    console.log("밍", e.target.value);
+  };
 
-    const formData = new FormData();
-    // avatar와 nickname 중 하나 또느 모두 변경 가능
-    // formData.append("avatar", imgFile);
-    // formData.append("nickname", nickname);
+  const completeName = (e) => {
+    console.log("밍", changeName);
+  };
+  const formData = new FormData();
+  // avatar와 nickname 중 하나 또느 모두 변경 가능
+  // formData.append("avatar", imgFile);
+  // formData.append("nickname", nickname);
 
-    // 요청 시 Content-Type에 유의
-    // const response = await axios.patch(`${BASE_URL}/profile`, formData, {
-    //       headers: {
-    //         "Content-Type": "multipart/form-data",
-    //         Authorization: `Bearer ${accessToken}`,
-    //       },
-    //     }
-    // );
-  }
+  // 요청 시 Content-Type에 유의
+  // const response = await axios.patch(`${BASE_URL}/profile`, formData, {
+  //       headers: {
+  //         "Content-Type": "multipart/form-data",
+  //         Authorization: `Bearer ${accessToken}`,
+  //       },
+  //     }
+  // );
 
   return (
     <>
@@ -40,6 +44,7 @@ function MyPage() {
       <StAuthWrap>
         <AuthChangeForm>
           <p>프로필 관리</p>
+
           <input type="file" />
           <section>
             <div
@@ -50,22 +55,25 @@ function MyPage() {
                 borderRadius: "100px",
               }}
             ></div>
-            <p>아이디 : {check.id}</p>
+            <p>아이디 : {auth.userId}</p>
             {!click ? (
-              <p>닉네임 : {check.nickname}</p>
+              <p>닉네임 : {auth.nickname}</p>
             ) : (
-              <AuthInput type="text" />
+              <AuthInput
+                type="text"
+                defaultValue={auth.nickname}
+                onChange={changeNickname}
+              />
             )}
           </section>
-
           <ButtonWrap>
             {!click ? (
               <AuthBtn onClick={startEdit}>수정하기</AuthBtn>
             ) : (
               <>
                 {" "}
-                <AuthBtn>취소</AuthBtn>
-                <AuthBtn>수정완료</AuthBtn>
+                <AuthBtn onClick={startEdit}>취소</AuthBtn>
+                <AuthBtn onClick={completeName}>수정완료</AuthBtn>
               </>
             )}
           </ButtonWrap>

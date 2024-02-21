@@ -6,27 +6,11 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { __addLetter } from "../redux/modules/lettersSlice";
-import { __userCheck } from "../redux/modules/authSlice";
 
 function LetterForm() {
-  const { isAdd, auth } = useSelector((state) => state.auth);
-  const [isRendered, setIsRendered] = useState(false);
   const dispatch = useDispatch();
   const navigator = useNavigate();
-  //유저정보 확인
-  // dispatch(__userCheck(auth.accessToken));
-  useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    console.log("토큰", token);
-    if (!token) {
-      //   navigator.push("/");
-      navigator("/login");
-      setIsRendered(true);
-    }
-  }, [isRendered]);
-
-  const formNickname = localStorage.getItem("nickname");
-
+  const { auth } = useSelector((state) => state.auth);
   const celebrityList = ["지젤", "카리나", "윈터", "닝닝"];
   const [writedTo, setWritedTo] = useState("지젤");
   const today = new Date();
@@ -46,8 +30,15 @@ function LetterForm() {
   //redux
   const name = useSelector((state) => state.name);
 
+  const accessToken = localStorage.getItem("accessToken");
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!accessToken) {
+      alert("토큰이 없어용");
+      return;
+    }
 
     const content = e.target.content.value;
 
@@ -76,13 +67,8 @@ function LetterForm() {
     alert("팬레터가 등록됐습니다!");
   };
 
-  const onSubmitLetter = (nextLetter) => {
-    // dispatch(addLetter(nextLetter));
+  const onSubmitLetter = async (nextLetter) => {
     dispatch(__addLetter(nextLetter));
-    console.log("???", isAdd);
-    if (isAdd) {
-      setIsRendered(true);
-    }
   };
 
   return (
@@ -92,7 +78,7 @@ function LetterForm() {
         <InputAndBtn onSubmit={handleSubmit}>
           <InputFormSt>
             닉네임 : &nbsp;
-            {formNickname}
+            {auth.nickname}
           </InputFormSt>
           <TextFormSt>
             내용 : &nbsp;

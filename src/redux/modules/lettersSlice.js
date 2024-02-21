@@ -23,6 +23,7 @@ export const __getLetter = createAsyncThunk(
     }
   }
 );
+
 export const __addLetter = createAsyncThunk(
   "addLETTER",
   async (payload, thunkAPI) => {
@@ -61,15 +62,11 @@ export const __editLetter = createAsyncThunk(
       //payload : id와 수정내용
       console.log("payload", payload);
       const { id, editContent } = payload;
-      console.log(editContent);
-      console.log(id);
 
       const editLetter = await axios.patch(
-        //payload : id
-        `http://localhost:5000/letters/${payload.id}`,
-        payload.editContent
+        `http://localhost:5000/letters/${id}`,
+        { content: editContent }
       );
-      console.log("editLetter", editLetter);
     } catch (error) {
       console.log("팬레터 수정하기 오류", error);
     }

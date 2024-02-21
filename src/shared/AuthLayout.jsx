@@ -2,17 +2,21 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
+import { __userCheck } from "../redux/modules/authSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 const AuthLayout = () => {
   const [isRendered, setIsRendered] = useState(false);
   const navigator = useNavigate();
+  const dispatch = useDispatch();
+  const { auth } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
+    const accessToken = localStorage.getItem("accessToken");
 
-    // 토큰이 없는 경우 강제 routing
-    if (!token) {
-      //   navigator.replace("/login");
+    if (accessToken) {
+      dispatch(__userCheck(accessToken));
+    } else {
       navigator("/login");
     }
 

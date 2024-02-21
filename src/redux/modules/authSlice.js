@@ -1,10 +1,5 @@
-import {
-  createActionCreatorInvariantMiddleware,
-  createAsyncThunk,
-  createSlice,
-} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import api from "letterAxios/api";
 
 const initialState = {
   auth: [],
@@ -29,8 +24,12 @@ export const __loginUser = createAsyncThunk(
 
       const userToken = user.data.accessToken;
       const nickname = user.data.nickname;
+      const avatar = user.data.avatar;
+      const userId = user.data.userId;
       localStorage.setItem("nickname", JSON.stringify(nickname));
       localStorage.setItem("accessToken", JSON.stringify(userToken));
+      localStorage.setItem("avatar", JSON.stringify(avatar));
+      localStorage.setItem("userId", JSON.stringify(userId));
 
       alert("로그인완료");
 
@@ -45,13 +44,14 @@ export const __userCheck = createAsyncThunk(
   "userCheck",
   async (payload, thunkAPI) => {
     try {
-      const check = await api.get("https://moneyfulpublicpolicy.co.kr/user", {
-        // headers: {
-        //   "Content-Type": "application/json",
-        //   Authorization: `Bearer ${payload}`,
-        // },
+      const check = await axios.get("https://moneyfulpublicpolicy.co.kr/user", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${payload}`,
+        },
       });
 
+      console.log("auth", check);
       return thunkAPI.fulfillWithValue(check.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -69,18 +69,12 @@ export const authSlice = createSlice({
         state.isLogin = false;
       })
       .addCase(__loginUser.fulfilled, (state, action) => {
-        state.isLogin = true; // 네트워크 요청이 끝났으니, false로 변경합니다.
-        // 추가로 상태 업데이트 로직을 작성해야 합니다.
+        state.isLogin = true;
         state.auth = action.payload;
       })
       .addCase(__loginUser.rejected, (state, action) => {
-        state.isLogin = false; // 요청이 실패하면 로딩 상태를 false로 변경합니다.
+        state.isLogin = false;
         state.error = action.payload;
-      })
-      .addCase(__userCheck.fulfilled, (state, action) => {
-        state.isLogin = true;
-
-        state.check = action.payload;
       });
   },
 });
