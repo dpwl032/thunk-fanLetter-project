@@ -5,23 +5,32 @@ import { useDispatch, useSelector } from "react-redux";
 import proImg from "assets/9720037.jpg";
 import { __getLetter } from "../redux/modules/lettersSlice";
 import { useEffect } from "react";
-import { Dispatch } from "redux";
+import { useState } from "react";
 function Item() {
   //redux
   const name = useSelector((state) => state.name);
 
   //redux thunk
-  const { letters } = useSelector((state) => state.letters);
+  const { letters, isLoading } = useSelector((state) => state.letters);
+  const [isRendered, setIsRendered] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(__getLetter());
   }, [dispatch]);
 
+  const filteredLetters = letters.filter((data) => {
+    return data.writedTo == name;
+  });
+
+  if (isLoading) {
+    return <div>로딩중입니다...</div>;
+  }
+
   return (
     <>
       <div style={{ backgroundColor: "black" }}>
         <StItemUl>
-          {letters.map((data) => {
+          {filteredLetters.map((data) => {
             return (
               <StItemLi key={data.id}>
                 <Link
@@ -52,7 +61,7 @@ function Item() {
           })}
         </StItemUl>
 
-        {!letters.length ? (
+        {!filteredLetters.length ? (
           <NoneLetter>
             {" "}
             현재 작성된 편지가 없습니다. [{name}]에게 팬레터를 보내주세요!

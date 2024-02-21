@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
-
-import api from "axios";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { __loginUser } from "../redux/modules/authSlice";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Login() {
   const [click, setClick] = useState(false);
@@ -16,8 +14,6 @@ function Login() {
   const [nickname, setNickname] = useState("");
   const dispatch = useDispatch();
   const navigator = useNavigate();
-
-  const { isLogin, error } = useSelector((state) => state.auth);
 
   const authChange = () => {
     setClick(!click);
@@ -53,7 +49,7 @@ function Login() {
   };
 
   //회원가입
-  const joinEventHandler = (e) => {
+  const joinEventHandler = async (e) => {
     e.preventDefault();
 
     if (id.length < 4 || password.length < 4) {
@@ -66,42 +62,45 @@ function Login() {
     }
 
     //회원가입 내용 DB에 저장
-    api
-      .post("https://moneyfulpublicpolicy.co.kr/register", {
+
+    try {
+      await axios.post("https://moneyfulpublicpolicy.co.kr/register", {
         id,
         password,
         nickname,
-      })
-      .then((response) => {
-        setClick(false);
-        alert("회원가입완료!");
-      })
-      .catch((error) => {
-        toast(error.response.data.message);
-        setClick(true);
       });
+
+      alert("회원가입완료!");
+    } catch (error) {
+      toast(error.response.data.message);
+      return;
+    }
+
+    setClick(!click);
   };
 
   //로그인
-  const loginEventHandler = (e) => {
+  const loginEventHandler = async (e) => {
+    // onSubmit 기본 동작 방지
     e.preventDefault();
+
+    // validation check
     if (id.length < 4 || password.length < 4) {
       alert("아이디 및 비밀번호는 4글자 이상 작성해주셔야합니다!");
       return;
     }
 
-    dispatch(__loginUser({ id, password }));
+    const response = await dispatch(__loginUser({ id, password }));
 
-    if (error) {
-      toast(error.response.data.message);
+    // 오류가 발생한 케이스
+    if (response.error) {
+      toast(response.payload.response.data.message);
       return;
     }
-  };
 
-  //로그인 한 상태를 유지하여 홈화면으로 이동
-  if (isLogin) {
+    // 정상인 케이스
     navigator("/");
-  }
+  };
 
   return (
     <>

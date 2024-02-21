@@ -3,8 +3,8 @@ import {
   createAsyncThunk,
   createSlice,
 } from "@reduxjs/toolkit";
-import api from "axios";
-import { act } from "react-dom/test-utils";
+import axios from "axios";
+import api from "letterAxios/api";
 
 const initialState = {
   auth: [],
@@ -19,8 +19,8 @@ export const __loginUser = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const { id, password } = payload;
-      const user = await api.post(
-        "https://moneyfulpublicpolicy.co.kr/login?expiresIn=1m",
+      const user = await axios.post(
+        "https://moneyfulpublicpolicy.co.kr/login?expiresIn=10m",
         {
           id,
           password,

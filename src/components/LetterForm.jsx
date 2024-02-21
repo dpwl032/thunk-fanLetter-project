@@ -4,17 +4,26 @@ import { addLetter } from "../redux/modules/lettersSlice";
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import { __addLetter } from "../redux/modules/lettersSlice";
 import { __userCheck } from "../redux/modules/authSlice";
 
 function LetterForm() {
-  const { isLogin, auth } = useSelector((state) => state.auth);
+  const { isAdd, auth } = useSelector((state) => state.auth);
+  const [isRendered, setIsRendered] = useState(false);
   const dispatch = useDispatch();
-  // console.log("왜 true 안되냐", isLogin);
-  // console.log("로그인정보 들고오나?", auth);
+  const navigator = useNavigate();
   //유저정보 확인
-  dispatch(__userCheck(auth.accessToken));
+  // dispatch(__userCheck(auth.accessToken));
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    console.log("토큰", token);
+    if (!token) {
+      //   navigator.push("/");
+      navigator("/login");
+      setIsRendered(true);
+    }
+  }, [isRendered]);
 
   const formNickname = localStorage.getItem("nickname");
 
@@ -25,6 +34,9 @@ function LetterForm() {
     year: "numeric",
     month: "long",
     day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
   });
 
   const onChangeName = (e) => {
@@ -67,6 +79,10 @@ function LetterForm() {
   const onSubmitLetter = (nextLetter) => {
     // dispatch(addLetter(nextLetter));
     dispatch(__addLetter(nextLetter));
+    console.log("???", isAdd);
+    if (isAdd) {
+      setIsRendered(true);
+    }
   };
 
   return (
