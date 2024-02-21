@@ -1,6 +1,7 @@
 # 팬레터 프로젝트
 
 > 스파르타 리덕스 심화주차 개인과제
+> ![easyme](/assets/readme/home.png)
 
 ## 주제
 
