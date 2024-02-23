@@ -4,56 +4,67 @@ import LetterForm from "components/LetterForm";
 import Item from "./Item";
 import { useSelector, useDispatch } from "react-redux";
 import { nameSelect } from "../redux/modules/nameSlice";
+import { useState } from "react";
+import ningning from "assets/img/ningning.webp";
+import karina from "assets/img/karina.webp";
+import winter from "assets/img/winter.webp";
+import giselle from "assets/img/giselle.webp";
 
 function LettersNav() {
   //redux
+  // const name = useSelector((state) => state.name);
+
+  //rtk
   const dispatch = useDispatch();
-  const name = useSelector((state) => state.name);
 
-  const celebrityList = ["지젤", "카리나", "윈터", "닝닝"];
-
-  const celebrityJob = (who) => {
-    switch (who) {
-      case "지젤":
-        return "지젤";
-      case "카리나":
-        return "카리나";
-      case "윈터":
-        return "윈터";
-      case "닝닝":
-        return "닝닝";
-      default:
-        return "연예인이 아닙니다";
-    }
-  };
+  const celebrityList = ["카리나", "윈터", "지젤", "닝닝"];
+  const [selectedAespa, setSelectedAespa] = useState("카리나");
 
   const onclickHandler = (who) => {
     dispatch(nameSelect(who));
+    setSelectedAespa(who);
   };
 
   return (
     <>
       <StNav>
         <StUl>
-          {celebrityList.map((who) => {
-            return (
-              <StButton
-                key={who}
-                $hoverItem={who}
-                onClick={() => onclickHandler(who)}
-                style={{
-                  backgroundColor: name === who ? "gray" : "initial",
-                }}
-              >
-                {celebrityJob(who)}
-              </StButton>
-            );
-          })}
+          <AespaImg
+            src={karina}
+            onClick={() => onclickHandler("카리나")}
+            selected={selectedAespa === "카리나"}
+          />
+          <AespaImg
+            src={winter}
+            onClick={() => onclickHandler("윈터")}
+            selected={selectedAespa === "윈터"}
+          />
+          <AespaImg
+            src={giselle}
+            onClick={() => onclickHandler("지젤")}
+            selected={selectedAespa === "지젤"}
+          />
+          <AespaImg
+            src={ningning}
+            onClick={() => onclickHandler("닝닝")}
+            selected={selectedAespa === "닝닝"}
+          />
         </StUl>
       </StNav>
+
+      <StName>
+        <StUlName>
+          {celebrityList.map((who) => {
+            return <AespaName key={who}>{who}</AespaName>;
+          })}
+        </StUlName>
+      </StName>
+      {/* Form 영역 */}
       <LetterForm />
-      <div style={{ background: "black" }}> &nbsp;</div>
       {/* Item 컴포넌트부분 */}
+      <div style={{ backgroundColor: "black", color: "black" }}>
+        div 간격띄우기
+      </div>
       <Item />
     </>
   );
@@ -70,54 +81,39 @@ const StNav = styled.div`
 `;
 
 const StUl = styled.ul`
-  background-color: white;
   justify-content: space-around;
-  width: 800px;
-  border: 1px solid red;
+  width: 900px;
   display: flex;
   align-items: center;
 `;
 
-const StButton = styled.button`
-  border: 1px solid black;
-  width: 140px;
-  height: 160px;
-  border-radius: 20px;
-  text-align: center;
-`;
-
-//이름을 배열에 담는다.
-
-/*item style*/
-
-const StItemUl = styled.ul`
-  width: 800px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 1px solid black;
-  gap: 20px;
-`;
-
-const StItemLi = styled.li`
-  width: 560px;
-  height: 200px;
-  text-align: center;
-  border: 2px solid red;
-  border-radius: 15px;
-`;
-
-const LetterItems = styled.div`
-  display: flex;
+const StName = styled.div`
+  height: 50px;
   width: 100%;
-  height: 100%;
+  background: black;
+  display: flex;
+  justify-content: center;
 `;
 
-const ProfileImg = styled.div`
-  width: 30%;
+const StUlName = styled.ul`
+  background-color: black;
+  justify-content: space-around;
+  width: 900px;
+  display: flex;
+  align-items: center;
 `;
 
-const LetterItem = styled.div`
-  width: 70%;
+const AespaImg = styled.img`
+  width: 150px;
+  height: 200px;
+  border-radius: 20px;
+  &:hover {
+    filter: grayscale(100%);
+  }
+  filter: grayscale(${(props) => (props.selected ? "100%" : "0%")});
+`;
+
+const AespaName = styled.span`
+  color: white;
+  fontweight: bolder;
 `;

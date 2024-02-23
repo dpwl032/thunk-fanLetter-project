@@ -11,20 +11,17 @@ function Item() {
   const name = useSelector((state) => state.name);
 
   //redux thunk
-  const { letters, isLoading } = useSelector((state) => state.letters);
-  const [isRendered, setIsRendered] = useState(false);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(__getLetter());
-  }, [dispatch]);
+  const { letters } = useSelector((state) => state.letters);
 
   const filteredLetters = letters.filter((data) => {
     return data.writedTo == name;
   });
 
-  if (isLoading) {
-    return <div>로딩중입니다...</div>;
-  }
+  useEffect(() => {
+    // getLetters
+    dispatch(__getLetter());
+  }, [dispatch]);
 
   return (
     <>
@@ -63,7 +60,6 @@ function Item() {
 
         {!filteredLetters.length ? (
           <NoneLetter>
-            {" "}
             현재 작성된 편지가 없습니다. [{name}]에게 팬레터를 보내주세요!
           </NoneLetter>
         ) : (

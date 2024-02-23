@@ -3,8 +3,15 @@ import styled from "styled-components";
 import LettersNav from "../components/LettersNav";
 import LettersHeader from "../components/LettersHeader";
 import MusicVideo from "../components/MusicVideo";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 function LettersLayout() {
+  const navigate = useNavigate();
+
+  const tk = localStorage.getItem("accessToken");
+  if (!tk) {
+    navigate("/login");
+  }
+
   return (
     <>
       <StLayout>
@@ -25,7 +32,6 @@ const StLayout = styled.div`
   width: 100%;
   height: 100%;
   background-color: white;
-  background-image: url("");
 `;
 const MenuBar = styled.div`
   width: 100%;

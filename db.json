@@ -12,19 +12,10 @@
     {
       "id": "a18cf094-bd7f-414a-a93d-95aecf615742",
       "nickname": "홍길동",
-      "content": "글쓰기 테스트",
+      "content": "글쓰기 테스트ㅎㅎ",
       "createdAt": "2024년 2월 21일",
       "avatar": null,
       "writedTo": "윈터",
-      "userId": "asarcsd11"
-    },
-    {
-      "id": "0322fc85-eb8c-4407-968f-901cd494011a",
-      "nickname": "홍길동",
-      "content": "1",
-      "createdAt": "2024년 2월 21일 오전 9:56:40",
-      "avatar": null,
-      "writedTo": "지젤",
       "userId": "asarcsd11"
     },
     {
@@ -37,11 +28,47 @@
       "userId": "test11dbss"
     },
     {
-      "id": "67440a88-5951-4ede-b3d7-a831fdf226a6",
-      "nickname": "홍길동",
-      "content": "작성 테스트",
-      "createdAt": "2024년 2월 21일 오후 12:50:33",
+      "id": "5ca36915-f6b5-46fe-b641-7162d2b209f5",
+      "nickname": "sample01",
+      "content": "zzzzzzzzz",
+      "createdAt": "2024년 2월 24일 오전 12:09:02",
       "avatar": null,
+      "writedTo": "카리나",
+      "userId": "sample01"
+    },
+    {
+      "id": "2d35455b-81e2-47ef-86bc-561d4bd4f4db",
+      "nickname": "홍길동",
+      "content": "ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+      "createdAt": "2024년 2월 24일 오전 4:23:06",
+      "avatar": null,
+      "writedTo": "카리나",
+      "userId": "asarcsd11"
+    },
+    {
+      "id": "4b66f257-78ae-46b5-9822-8b1f8516a4a2",
+      "nickname": "ㄹ",
+      "content": "ㄹㄹㄹㄹㄹ",
+      "createdAt": "2024년 2월 24일 오전 4:47:08",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-02-23/fa7e2d76-1896-4be1-936d-d1930778d8ae.jpg",
+      "writedTo": "지젤",
+      "userId": "asarcsd11"
+    },
+    {
+      "id": "adbdeb97-f66c-4b84-a3d9-8f0ca4cee534",
+      "nickname": "ㄹ",
+      "content": "ㅋㅋㅋㅋㅋ",
+      "createdAt": "2024년 2월 24일 오전 4:47:14",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-02-23/fa7e2d76-1896-4be1-936d-d1930778d8ae.jpg",
+      "writedTo": "카리나",
+      "userId": "asarcsd11"
+    },
+    {
+      "id": "376c15a3-125e-437b-b43f-3cc68fd9821d",
+      "nickname": "ㄹ",
+      "content": "ㄹㄹㄹㄹ",
+      "createdAt": "2024년 2월 24일 오전 4:47:14",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-02-23/fa7e2d76-1896-4be1-936d-d1930778d8ae.jpg",
       "writedTo": "카리나",
       "userId": "asarcsd11"
     }

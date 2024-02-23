@@ -1,11 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import authApi from "../../letterAxios/api";
 import axios from "axios";
 
 const initialState = {
-  auth: [],
-  isLogin: false,
+  isLogin: !!localStorage.getItem("accessToken"),
+  avatar: localStorage.getItem("avatar"),
+  nickname: localStorage.getItem("nickname"),
+  userId: localStorage.getItem("userId"),
+  isLoading: false,
+  isError: false,
   error: null,
-  check: [],
 };
 
 // 로그인
@@ -14,22 +18,10 @@ export const __loginUser = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const { id, password } = payload;
-      const user = await axios.post(
-        "https://moneyfulpublicpolicy.co.kr/login?expiresIn=10m",
-        {
-          id,
-          password,
-        }
-      );
-
-      const userToken = user.data.accessToken;
-      const nickname = user.data.nickname;
-      const avatar = user.data.avatar;
-      const userId = user.data.userId;
-      localStorage.setItem("nickname", JSON.stringify(nickname));
-      localStorage.setItem("accessToken", JSON.stringify(userToken));
-      localStorage.setItem("avatar", JSON.stringify(avatar));
-      localStorage.setItem("userId", JSON.stringify(userId));
+      const user = await authApi.post("/login?expiresIn=10m", {
+        id,
+        password,
+      });
 
       alert("로그인완료");
 
@@ -40,20 +32,37 @@ export const __loginUser = createAsyncThunk(
   }
 );
 
-export const __userCheck = createAsyncThunk(
-  "userCheck",
-  async (payload, thunkAPI) => {
+export const __editProfile = createAsyncThunk(
+  "editProfile",
+
+  async (formData, thunkAPI) => {
     try {
-      const check = await axios.get("https://moneyfulpublicpolicy.co.kr/user", {
+      const { data } = await authApi.patch("/profile", formData, {
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${payload}`,
+          "Content-Type": "multipart/form-data",
         },
       });
 
-      console.log("auth", check);
-      return thunkAPI.fulfillWithValue(check.data);
+      const editingobj = {};
+      const { nickname, avatar } = data;
+      if (nickname) editingobj.nickname = nickname;
+      if (avatar) editingobj.avatar = avatar;
+
+      const userId = localStorage.getItem("userId");
+      const { data: myLetters } = await axios.get(
+        `http://localhost:4000/letter?useId=${userId}`
+      );
+      //json서버에 내 팬레터들의 닉네임과 아바타 변경
+      for (const myLetter of myLetters) {
+        await axios.patch(
+          `http://localhost:4000/letter${myLetters.id}`,
+          editingobj
+        );
+      }
+
+      return data;
     } catch (error) {
+      console.log("error", error);
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -66,14 +75,43 @@ export const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(__loginUser.pending, (state, action) => {
-        state.isLogin = false;
+        state.isLoading = true;
       })
       .addCase(__loginUser.fulfilled, (state, action) => {
+        const { accessToken, avatar, nickname, userId } = action.payload;
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("avatar", avatar);
+        localStorage.setItem("nickname", nickname);
+        localStorage.setItem("userId", userId);
         state.isLogin = true;
-        state.auth = action.payload;
+        state.avatar = avatar;
+        state.nickname = nickname;
+        state.userId = userId;
+        state.isLoading = false;
       })
       .addCase(__loginUser.rejected, (state, action) => {
-        state.isLogin = false;
+        state.isLoading = false;
+        state.isError = true;
+        state.error = action.payload;
+      })
+      .addCase(__editProfile.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(__editProfile.fulfilled, (state, action) => {
+        const { avatar, nickname } = action.payload;
+        if (avatar) {
+          localStorage.setItem("avatar", avatar);
+          state.avatar = avatar;
+        }
+        if (nickname) {
+          localStorage.setItem("nickname", nickname);
+          state.nickname = nickname;
+        }
+        state.isLoading = false;
+      })
+      .addCase(__editProfile.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
         state.error = action.payload;
       });
   },

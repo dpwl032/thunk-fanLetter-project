@@ -5,8 +5,7 @@
 ## 주제
 
 인증 서비스가 들어간 그룹 아티스트 팬레터함
-
-<img src="/assets/readme/home.png"  width="500" height="370">
+![](2024-02-24-05-12-05.png)
 
 ## 개발기간
 
@@ -31,14 +30,14 @@
 ## 진행하면서 발생한 오류
 
 - 새로고침 시 데이터 날라감
-- 실시간 렌더링 오류
+- <s>실시간 렌더링 오류</s>
 - JWT 인증 서버 , 회원 정보 확인 오류 발생
 
 ## 프로젝트 보완 사항
 
 - 모든 api요청 전에 accessToken 유효여부 확인
-- 프로필 api 설정
-- box-sizing : border-box 설정 및 css 수정
-- 의미없는 swtich문 변경수정
-- 선택 요구 사항
+- <S>프로필 api 설정</S>
+- <s>box-sizing : border-box 설정 및 css 수정</s>
+- <s>의미없는 swtich문 변경수정</s>
 - redux 쿼리를 사용한 리팩토링 (현재 진행중)
+- 선택 요구 사항

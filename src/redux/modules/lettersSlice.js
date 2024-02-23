@@ -5,18 +5,25 @@ import axios from "axios";
 //초기값
 const initialState = {
   letters: [],
-  isAdd: false,
+  isLoading: true,
+  isError: false,
   error: null,
+};
+
+//갱신코드 ⭐⭐⭐⭐
+const getLettersFromDB = async () => {
+  const { data } = await axios.get(
+    "http://localhost:5000/letters?_sort=-createdAt"
+  );
+  return data;
 };
 
 export const __getLetter = createAsyncThunk(
   "getLETTER",
   async (payload, thunkAPI) => {
     try {
-      const allLetter = await axios.get(
-        "http://localhost:5000/letters?_sort=-createdAt"
-      );
-      return thunkAPI.fulfillWithValue(allLetter.data);
+      const letters = await getLettersFromDB();
+      return letters;
     } catch (error) {
       console.log("팬레터 가져오기 오류", error);
       return thunkAPI.rejectWithValue(error);
@@ -29,11 +36,9 @@ export const __addLetter = createAsyncThunk(
   async (payload, thunkAPI) => {
     //payload : new letter
     try {
-      const newLetter = await axios.post(
-        "http://localhost:5000/letters",
-        payload
-      );
-      return thunkAPI.fulfillWithValue(newLetter.data);
+      await axios.post("http://localhost:5000/letters", payload);
+      const letters = await getLettersFromDB();
+      return letters;
     } catch (error) {
       console.log("팬레터 추가하기 오류", error);
       return thunkAPI.rejectWithValue(error);
@@ -45,12 +50,15 @@ export const __deleteLetter = createAsyncThunk(
   "deleteLETTER",
   async (payload, thunkAPI) => {
     try {
-      const deleteLetter = await axios.delete(
+      await axios.delete(
         //payload : id
         `http://localhost:5000/letters/${payload}`
       );
+      const letters = getLettersFromDB();
+      return letters;
     } catch (error) {
       console.log("팬레터 삭제하기 오류", error);
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
@@ -61,14 +69,16 @@ export const __editLetter = createAsyncThunk(
     try {
       //payload : id와 수정내용
       console.log("payload", payload);
-      const { id, editContent } = payload;
+      const { foundId, editContent } = payload;
 
-      const editLetter = await axios.patch(
-        `http://localhost:5000/letters/${id}`,
-        { content: editContent }
-      );
+      await axios.patch(`http://localhost:5000/letters/${foundId}`, {
+        content: editContent,
+      });
+      const letters = getLettersFromDB();
+      return letters;
     } catch (error) {
       console.log("팬레터 수정하기 오류", error);
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
@@ -85,15 +95,49 @@ const lettersSlice = createSlice({
       .addCase(__getLetter.fulfilled, (state, action) => {
         state.isLoading = false;
         state.letters = action.payload;
+        state.isError = false;
+        state.error = null;
       })
       .addCase(__addLetter.pending, (state, action) => {
         state.isLoading = true;
       })
       .addCase(__addLetter.fulfilled, (state, action) => {
-        console.log("추가된편지", action.payload);
-        state.isAdd = action.payload;
+        state.isLoading = false;
+        state.letters = action.payload;
+        state.isError = false;
+        state.error = null;
       })
       .addCase(__addLetter.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.error = action.payload;
+      })
+      .addCase(__deleteLetter.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(__deleteLetter.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.letters = action.payload;
+        state.isError = false;
+        state.error = null;
+      })
+      .addCase(__deleteLetter.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.error = action.payload;
+      })
+      .addCase(__editLetter.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(__editLetter.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.letters = action.payload;
+        state.isError = false;
+        state.error = null;
+      })
+      .addCase(__editLetter.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
         state.error = action.payload;
       });
   },

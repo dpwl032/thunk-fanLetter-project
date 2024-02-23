@@ -20,7 +20,7 @@ function Detail() {
     navigator("/login");
   }
   const dispatch = useDispatch();
-  const { auth } = useSelector((state) => state.auth);
+
   //redux
 
   const [click, setClick] = useState(false);
@@ -31,6 +31,7 @@ function Detail() {
   const navigate = useNavigate();
 
   const { letters } = useSelector((state) => state.letters);
+  const { nickname } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(__getLetter());
@@ -41,15 +42,14 @@ function Detail() {
     return letter.id === params.id;
   });
 
-  const { nickname, createdAt, content, id } = foundLetter;
-
+  const { id: foundId, createdAt, writedTo } = foundLetter;
   const onChangeLetter = () => {
     if (!editContent) {
       alert("수정한 내용이 없습니다.");
       return;
     }
 
-    dispatch(__editLetter({ id, editContent }));
+    dispatch(__editLetter({ foundId, editContent }));
     setClick(false);
     alert("수정이 완료됐습니다.");
     navigate("/");
@@ -62,17 +62,32 @@ function Detail() {
     navigate("/");
   };
 
+  //header
+  const logout = () => {
+    alert("로그아웃됐습니다.");
+    localStorage.removeItem("accessToken");
+    navigate("/login");
+  };
+
+  const goToMypage = () => {
+    navigate("/my");
+  };
   return (
     <>
       <StHeader>
         <Link to="/">
           <HeaderBtn>YJ's made</HeaderBtn>
         </Link>
-        <HeaderBtn>SIGN UP</HeaderBtn>
+        <HeaderItemWrap>
+          <HeaderBtn onClick={goToMypage}>MY PAGE</HeaderBtn>
+          <span style={{ color: "gray" }}>&nbsp;|&nbsp; </span>
+          <HeaderBtn onClick={logout}>SIGN OUT</HeaderBtn>
+        </HeaderItemWrap>
       </StHeader>
       <StDetail>
         <DetailOneLetter>
-          <section>{nickname}</section>
+          <section>To. {writedTo}</section>
+          <section>From. {nickname}</section>
           <section>{createdAt}</section>
           <section>
             {click ? (
@@ -80,7 +95,7 @@ function Detail() {
                 autoFocus
                 type="text"
                 name="content"
-                defaultValue={content}
+                defaultValue={foundLetter.content}
                 onChange={(e) => setEditContent(e.target.value)}
               ></TextArea>
             ) : (
@@ -88,13 +103,13 @@ function Detail() {
             )}
             <hr />
             <ButtonWrap>
-              {nickname === auth.nickname ? (
+              {foundLetter.nickname === nickname ? (
                 !click ? (
                   <>
                     <DetailBtn onClick={() => setClick(true)}>
                       수정하기
                     </DetailBtn>
-                    <DetailBtn onClick={() => deleteLetter(id)}>
+                    <DetailBtn onClick={() => deleteLetter(foundLetter.id)}>
                       삭제하기
                     </DetailBtn>
                   </>
@@ -135,21 +150,31 @@ export default Detail;
 
 const StHeader = styled.div`
   background-color: white;
-  height: 50px;
+  height: 70px;
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   position: fixed;
 `;
 
 const HeaderBtn = styled.button`
-  background-color: #6accc5;
-  width: 100px;
-  height: 50px;
-  border-radius: 20px;
+  background: linear-gradient(to bottom, #6ab8c8, #2adc9e);
+  width: 89px;
+  height: 36px;
+  border-radius: 100px;
   color: white;
   border: none;
   font-weight: bolder;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const HeaderItemWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const StDetail = styled.div`
@@ -158,14 +183,14 @@ const StDetail = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 700px;
+  height: 800px;
   background-color: #ede6e69f;
 `;
 
 const DetailOneLetter = styled.div`
   border: 1px solid #b9aeae9f;
   border-radius: 20px;
-  width: 600px;
+  width: 500px;
   height: 500px;
   background-color: white;
   display: flex;
@@ -182,6 +207,12 @@ const DetailBtn = styled.button`
   border: none;
   border-radius: 3px;
   background-color: #6accc5;
+  &:hover {
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    border: 2px solid #6accc5;
+  }
   color: white;
 `;
 

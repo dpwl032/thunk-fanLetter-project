@@ -10,7 +10,7 @@ function MusicVideo() {
           videoId="xjBY3MLdvVQ" //동영상 주소
           opts={{
             width: "100%",
-            height: "500px",
+            height: "510px",
             playerVars: {
               autoplay: 1, //자동 재생 여부
               modestbranding: 1, //컨트롤 바에 유튜브 로고 표시 여부

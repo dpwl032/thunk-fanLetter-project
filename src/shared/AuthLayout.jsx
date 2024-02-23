@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
-import { __userCheck } from "../redux/modules/authSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 const AuthLayout = () => {
@@ -13,12 +12,6 @@ const AuthLayout = () => {
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
-
-    if (accessToken) {
-      dispatch(__userCheck(accessToken));
-    } else {
-      navigator("/login");
-    }
 
     // 컴포넌트 렌더링!!!
     setIsRendered(true);
