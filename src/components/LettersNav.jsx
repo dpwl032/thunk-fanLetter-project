@@ -108,9 +108,9 @@ const AespaImg = styled.img`
   height: 200px;
   border-radius: 20px;
   &:hover {
-    filter: grayscale(100%);
+    filter: grayscale(0%);
   }
-  filter: grayscale(${(props) => (props.selected ? "100%" : "0%")});
+  filter: grayscale(${(props) => (props.selected ? "0%" : "100%")});
 `;
 
 const AespaName = styled.span`
