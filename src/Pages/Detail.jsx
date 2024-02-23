@@ -30,10 +30,8 @@ function Detail() {
   const params = useParams();
   const navigate = useNavigate();
 
-  const { letters, createdAt, content, id } = useSelector(
-    (state) => state.letters
-  );
-  const { avatar, nickname, userId } = useSelector((state) => state.auth);
+  const { letters } = useSelector((state) => state.letters);
+  const { nickname } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(__getLetter());
@@ -44,7 +42,9 @@ function Detail() {
     return letter.id === params.id;
   });
 
-  const { id: foundId } = foundLetter;
+  const { id: foundId, createdAt, writedTo } = foundLetter;
+
+  console.log("test", foundLetter);
 
   const onChangeLetter = () => {
     if (!editContent) {
@@ -65,17 +65,32 @@ function Detail() {
     navigate("/");
   };
 
+  //header
+  const logout = () => {
+    alert("로그아웃됐습니다.");
+    localStorage.removeItem("accessToken");
+    navigate("/login");
+  };
+
+  const goToMypage = () => {
+    navigate("/my");
+  };
   return (
     <>
       <StHeader>
         <Link to="/">
           <HeaderBtn>YJ's made</HeaderBtn>
         </Link>
-        <HeaderBtn>SIGN UP</HeaderBtn>
+        <HeaderItemWrap>
+          <HeaderBtn onClick={goToMypage}>MY PAGE</HeaderBtn>
+          <span style={{ color: "gray" }}>&nbsp;|&nbsp; </span>
+          <HeaderBtn onClick={logout}>SIGN OUT</HeaderBtn>
+        </HeaderItemWrap>
       </StHeader>
       <StDetail>
         <DetailOneLetter>
-          <section>{nickname}</section>
+          <section>To. {writedTo}</section>
+          <section>From. {nickname}</section>
           <section>{createdAt}</section>
           <section>
             {click ? (
@@ -138,21 +153,31 @@ export default Detail;
 
 const StHeader = styled.div`
   background-color: white;
-  height: 50px;
+  height: 70px;
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   position: fixed;
 `;
 
 const HeaderBtn = styled.button`
-  background-color: #6accc5;
-  width: 100px;
-  height: 50px;
-  border-radius: 20px;
+  background: linear-gradient(to bottom, #6ab8c8, #2adc9e);
+  width: 89px;
+  height: 36px;
+  border-radius: 100px;
   color: white;
   border: none;
   font-weight: bolder;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const HeaderItemWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const StDetail = styled.div`
@@ -185,6 +210,12 @@ const DetailBtn = styled.button`
   border: none;
   border-radius: 3px;
   background-color: #6accc5;
+  &:hover {
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    border: 2px solid #6accc5;
+  }
   color: white;
 `;
 

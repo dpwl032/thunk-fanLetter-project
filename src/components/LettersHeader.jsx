@@ -5,13 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 function LettersHeader() {
-  const { isLogin, auth } = useSelector((state) => state.auth);
-  const [login, setLogin] = useState(true);
   const navigator = useNavigate();
   const logout = () => {
     alert("로그아웃됐습니다.");
     localStorage.removeItem("accessToken");
-    setLogin(false);
     navigator("/login");
   };
 
@@ -24,10 +21,11 @@ function LettersHeader() {
         <Link to="/">
           <HeaderBtn>YJ's made</HeaderBtn>
         </Link>
-        <div>
+        <HeaderItemWrap>
           <HeaderBtn onClick={goToMypage}>MY PAGE</HeaderBtn>
+          <span style={{ color: "gray" }}>&nbsp;|&nbsp; </span>
           <HeaderBtn onClick={logout}>SIGN OUT</HeaderBtn>
-        </div>
+        </HeaderItemWrap>
       </StHeader>
     </>
   );
@@ -37,19 +35,29 @@ export default LettersHeader;
 
 const StHeader = styled.div`
   background-color: black;
-  height: 50px;
+  height: 70px;
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   position: fixed;
 `;
 
 const HeaderBtn = styled.button`
-  background-color: #6accc5;
-  width: 100px;
-  height: 50px;
-  border-radius: 20px;
+  background: linear-gradient(to bottom, #6ab8c8, #2adc9e);
+  &:hover {
+    cursor: pointer;
+  }
+  width: 89px;
+  height: 36px;
+  border-radius: 100px;
   color: white;
   border: none;
   font-weight: bolder;
+`;
+
+const HeaderItemWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;

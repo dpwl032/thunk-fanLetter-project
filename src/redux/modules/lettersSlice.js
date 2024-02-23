@@ -58,6 +58,7 @@ export const __deleteLetter = createAsyncThunk(
       return letters;
     } catch (error) {
       console.log("팬레터 삭제하기 오류", error);
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
@@ -68,15 +69,16 @@ export const __editLetter = createAsyncThunk(
     try {
       //payload : id와 수정내용
       console.log("payload", payload);
-      const { id, editContent } = payload;
+      const { foundId, editContent } = payload;
 
-      await axios.patch(`http://localhost:5000/letters/${id}`, {
+      await axios.patch(`http://localhost:5000/letters/${foundId}`, {
         content: editContent,
       });
       const letters = getLettersFromDB();
       return letters;
     } catch (error) {
       console.log("팬레터 수정하기 오류", error);
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
@@ -100,7 +102,6 @@ const lettersSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(__addLetter.fulfilled, (state, action) => {
-        console.log("추가된편지", action.payload);
         state.isLoading = false;
         state.letters = action.payload;
         state.isError = false;
@@ -115,13 +116,26 @@ const lettersSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(__deleteLetter.fulfilled, (state, action) => {
-        console.log("삭제된편지", action.payload);
         state.isLoading = false;
         state.letters = action.payload;
         state.isError = false;
         state.error = null;
       })
       .addCase(__deleteLetter.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.error = action.payload;
+      })
+      .addCase(__editLetter.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(__editLetter.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.letters = action.payload;
+        state.isError = false;
+        state.error = null;
+      })
+      .addCase(__editLetter.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.error = action.payload;

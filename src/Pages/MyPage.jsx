@@ -41,7 +41,7 @@ function MyPage() {
               }}
             >
               <img
-                src={null ?? avatar}
+                src={proImg}
                 alt="이미지가 없어요!"
                 style={{
                   width: "200px",
@@ -50,7 +50,8 @@ function MyPage() {
                   borderRadius: "100px",
                 }}
               />
-            </div>
+            </div>{" "}
+            <br />
             <p>아이디 : {userId}</p>
             {!click ? (
               <p>닉네임 : {nickname}</p>
@@ -62,9 +63,10 @@ function MyPage() {
               />
             )}
           </section>
+
           <ButtonWrap>
             {!click ? (
-              <AuthBtn onClick={startEdit}>수정하기</AuthBtn>
+              <AuthBtn onClick={startEdit}>프로필 수정하기</AuthBtn>
             ) : (
               <>
                 {" "}
@@ -112,6 +114,12 @@ const AuthBtn = styled.button`
   border-radius: 3px;
   background-color: #6accc5;
   color: white;
+  &:hover {
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    border: 2px solid #6accc5;
+  }
 `;
 
 const ChangeBtn = styled.button`

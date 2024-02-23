@@ -4,28 +4,19 @@ import LetterForm from "components/LetterForm";
 import Item from "./Item";
 import { useSelector, useDispatch } from "react-redux";
 import { nameSelect } from "../redux/modules/nameSlice";
+import { useState } from "react";
+import ningning from "assets/img/ningning.webp";
+import karina from "assets/img/karina.webp";
+import winter from "assets/img/winter.webp";
+import giselle from "assets/img/giselle.webp";
 
 function LettersNav() {
   //redux
   const dispatch = useDispatch();
   const name = useSelector((state) => state.name);
 
-  const celebrityList = ["지젤", "카리나", "윈터", "닝닝"];
-
-  const celebrityJob = (who) => {
-    switch (who) {
-      case "지젤":
-        return "지젤";
-      case "카리나":
-        return "카리나";
-      case "윈터":
-        return "윈터";
-      case "닝닝":
-        return "닝닝";
-      default:
-        return "연예인이 아닙니다";
-    }
-  };
+  const celebrityList = ["카리나", "윈터", "지젤", "닝닝"];
+  const [selectedImage, setSelectedImage] = useState("카리나");
 
   const onclickHandler = (who) => {
     dispatch(nameSelect(who));
@@ -35,23 +26,43 @@ function LettersNav() {
     <>
       <StNav>
         <StUl>
-          {celebrityList.map((who) => {
-            return (
-              <StButton
-                key={who}
-                $hoverItem={who}
-                onClick={() => onclickHandler(who)}
-                style={{
-                  backgroundColor: name === who ? "gray" : "initial",
-                }}
-              >
-                {celebrityJob(who)}
-              </StButton>
-            );
-          })}
+          <AespaImg
+            src={karina}
+            name="카리나"
+            onClick={() => onclickHandler("카리나")}
+          />
+          <AespaImg
+            src={winter}
+            name="윈터"
+            onClick={() => onclickHandler("윈터")}
+          />
+          <AespaImg
+            src={giselle}
+            name="지젤"
+            onClick={() => onclickHandler("지젤")}
+          />
+          <AespaImg
+            src={ningning}
+            name="닝닝"
+            onClick={() => onclickHandler("닝닝")}
+          />
         </StUl>
       </StNav>
+
+      <StName>
+        <StUlName>
+          {celebrityList.map((who) => {
+            return (
+              <span key={who} style={{ color: "white", fontWeight: "bolder" }}>
+                {who}
+              </span>
+            );
+          })}
+        </StUlName>
+      </StName>
+
       <LetterForm />
+
       <div style={{ background: "black" }}> &nbsp;</div>
       {/* Item 컴포넌트부분 */}
       <Item />
@@ -70,10 +81,24 @@ const StNav = styled.div`
 `;
 
 const StUl = styled.ul`
-  background-color: white;
   justify-content: space-around;
-  width: 800px;
-  border: 1px solid red;
+  width: 900px;
+  display: flex;
+  align-items: center;
+`;
+
+const StName = styled.div`
+  height: 50px;
+  width: 100%;
+  background: black;
+  display: flex;
+  justify-content: center;
+`;
+
+const StUlName = styled.ul`
+  background-color: black;
+  justify-content: space-around;
+  width: 900px;
   display: flex;
   align-items: center;
 `;
@@ -120,4 +145,13 @@ const ProfileImg = styled.div`
 
 const LetterItem = styled.div`
   width: 70%;
+`;
+
+const AespaImg = styled.img`
+  width: 150px;
+  height: 200px;
+  border-radius: 20px;
+  &:hover {
+    filter: grayscale(100%);
+  }
 `;

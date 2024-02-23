@@ -28,10 +28,19 @@
       "userId": "test11dbss"
     },
     {
-      "id": "0f1026c9-9f44-4557-b6ac-129690b8591a",
+      "id": "5ca36915-f6b5-46fe-b641-7162d2b209f5",
+      "nickname": "sample01",
+      "content": "zzzzzzzzz",
+      "createdAt": "2024년 2월 24일 오전 12:09:02",
+      "avatar": null,
+      "writedTo": "카리나",
+      "userId": "sample01"
+    },
+    {
+      "id": "b1228600-275e-4da5-9617-40a38d179006",
       "nickname": "홍길동",
-      "content": "ㅋㅋㅋㅋㅋ",
-      "createdAt": "2024년 2월 23일 오후 11:42:23",
+      "content": "ㅎㅎㅎㅎㅎ",
+      "createdAt": "2024년 2월 24일 오전 12:34:59",
       "avatar": "null",
       "writedTo": "카리나",
       "userId": "asarcsd11"
