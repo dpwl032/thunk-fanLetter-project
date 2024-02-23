@@ -32,6 +32,42 @@ export const __loginUser = createAsyncThunk(
   }
 );
 
+export const __editProfile = createAsyncThunk(
+  "editProfile",
+
+  async (formData, thunkAPI) => {
+    try {
+      const { data } = await authApi.patch("/profile", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      const editingobj = {};
+      const { nickname, avatar } = data;
+      if (nickname) editingobj.nickname = nickname;
+      if (avatar) editingobj.avatar = avatar;
+
+      const userId = localStorage.getItem("userId");
+      const { data: myLetters } = await axios.get(
+        `http://localhost:4000/letter?useId=${userId}`
+      );
+      //json서버에 내 팬레터들의 닉네임과 아바타 변경
+      for (const myLetter of myLetters) {
+        await axios.patch(
+          `http://localhost:4000/letter${myLetters.id}`,
+          editingobj
+        );
+      }
+
+      return data;
+    } catch (error) {
+      console.log("error", error);
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -54,6 +90,26 @@ export const authSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(__loginUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.error = action.payload;
+      })
+      .addCase(__editProfile.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(__editProfile.fulfilled, (state, action) => {
+        const { avatar, nickname } = action.payload;
+        if (avatar) {
+          localStorage.setItem("avatar", avatar);
+          state.avatar = avatar;
+        }
+        if (nickname) {
+          localStorage.setItem("nickname", nickname);
+          state.nickname = nickname;
+        }
+        state.isLoading = false;
+      })
+      .addCase(__editProfile.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.error = action.payload;

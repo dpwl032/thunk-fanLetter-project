@@ -10,14 +10,10 @@ const authApi = axios.create({
 authApi.interceptors.request.use(
   function (config) {
     // console.log("config", config);
-    if (config === "/user") {
-      const at = localStorage.getItem("accessToken");
-      if (at) {
-        config.headers["Authorization"] = `Bearer ${at}`;
-      } else {
-        alert("인증이 필요합니다.");
-        return Promise.reject("인증이 필요합니다.");
-      }
+
+    const at = localStorage.getItem("accessToken");
+    if (at) {
+      config.headers["Authorization"] = `Bearer ${at}`;
     }
 
     return config;
@@ -34,7 +30,7 @@ authApi.interceptors.response.use(
     return response;
   },
   function (error) {
-    console.log("응답받기 실패", error);
+    console.log("응답받기 실패", error.message);
     return Promise.reject(error);
   }
 );

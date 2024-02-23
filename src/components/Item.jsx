@@ -11,9 +11,8 @@ function Item() {
   const name = useSelector((state) => state.name);
 
   //redux thunk
-  const { letters } = useSelector((state) => state.letters);
-
   const dispatch = useDispatch();
+  const { letters } = useSelector((state) => state.letters);
 
   const filteredLetters = letters.filter((data) => {
     return data.writedTo == name;
@@ -61,7 +60,6 @@ function Item() {
 
         {!filteredLetters.length ? (
           <NoneLetter>
-            {" "}
             현재 작성된 편지가 없습니다. [{name}]에게 팬레터를 보내주세요!
           </NoneLetter>
         ) : (

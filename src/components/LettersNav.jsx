@@ -12,8 +12,10 @@ import giselle from "assets/img/giselle.webp";
 
 function LettersNav() {
   //redux
+  // const name = useSelector((state) => state.name);
+
+  //rtk
   const dispatch = useDispatch();
-  const name = useSelector((state) => state.name);
 
   const celebrityList = ["카리나", "윈터", "지젤", "닝닝"];
   const [selectedAespa, setSelectedAespa] = useState("카리나");
@@ -30,22 +32,22 @@ function LettersNav() {
           <AespaImg
             src={karina}
             onClick={() => onclickHandler("카리나")}
-            isSelected={selectedAespa === "카리나"}
+            selected={selectedAespa === "카리나"}
           />
           <AespaImg
             src={winter}
             onClick={() => onclickHandler("윈터")}
-            isSelected={selectedAespa === "윈터"}
+            selected={selectedAespa === "윈터"}
           />
           <AespaImg
             src={giselle}
             onClick={() => onclickHandler("지젤")}
-            isSelected={selectedAespa === "지젤"}
+            selected={selectedAespa === "지젤"}
           />
           <AespaImg
             src={ningning}
             onClick={() => onclickHandler("닝닝")}
-            isSelected={selectedAespa === "닝닝"}
+            selected={selectedAespa === "닝닝"}
           />
         </StUl>
       </StNav>
@@ -53,19 +55,16 @@ function LettersNav() {
       <StName>
         <StUlName>
           {celebrityList.map((who) => {
-            return (
-              <span key={who} style={{ color: "white", fontWeight: "bolder" }}>
-                {who}
-              </span>
-            );
+            return <AespaName key={who}>{who}</AespaName>;
           })}
         </StUlName>
       </StName>
-
+      {/* Form 영역 */}
       <LetterForm />
-
-      <div style={{ background: "black" }}> &nbsp;</div>
       {/* Item 컴포넌트부분 */}
+      <div style={{ backgroundColor: "black", color: "black" }}>
+        div 간격띄우기
+      </div>
       <Item />
     </>
   );
@@ -111,5 +110,10 @@ const AespaImg = styled.img`
   &:hover {
     filter: grayscale(100%);
   }
-  filter: grayscale(${(props) => (props.isSelected ? "100%" : "0%")});
+  filter: grayscale(${(props) => (props.selected ? "100%" : "0%")});
+`;
+
+const AespaName = styled.span`
+  color: white;
+  fontweight: bolder;
 `;
