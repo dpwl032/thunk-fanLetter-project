@@ -43,9 +43,6 @@ function Detail() {
   });
 
   const { id: foundId, createdAt, writedTo } = foundLetter;
-
-  console.log("test", foundLetter);
-
   const onChangeLetter = () => {
     if (!editContent) {
       alert("수정한 내용이 없습니다.");
@@ -186,14 +183,14 @@ const StDetail = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 700px;
+  height: 800px;
   background-color: #ede6e69f;
 `;
 
 const DetailOneLetter = styled.div`
   border: 1px solid #b9aeae9f;
   border-radius: 20px;
-  width: 600px;
+  width: 500px;
   height: 500px;
   background-color: white;
   display: flex;

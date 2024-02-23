@@ -16,10 +16,11 @@ function LettersNav() {
   const name = useSelector((state) => state.name);
 
   const celebrityList = ["카리나", "윈터", "지젤", "닝닝"];
-  const [selectedImage, setSelectedImage] = useState("카리나");
+  const [selectedAespa, setSelectedAespa] = useState("카리나");
 
   const onclickHandler = (who) => {
     dispatch(nameSelect(who));
+    setSelectedAespa(who);
   };
 
   return (
@@ -28,23 +29,23 @@ function LettersNav() {
         <StUl>
           <AespaImg
             src={karina}
-            name="카리나"
             onClick={() => onclickHandler("카리나")}
+            isSelected={selectedAespa === "카리나"}
           />
           <AespaImg
             src={winter}
-            name="윈터"
             onClick={() => onclickHandler("윈터")}
+            isSelected={selectedAespa === "윈터"}
           />
           <AespaImg
             src={giselle}
-            name="지젤"
             onClick={() => onclickHandler("지젤")}
+            isSelected={selectedAespa === "지젤"}
           />
           <AespaImg
             src={ningning}
-            name="닝닝"
             onClick={() => onclickHandler("닝닝")}
+            isSelected={selectedAespa === "닝닝"}
           />
         </StUl>
       </StNav>
@@ -103,50 +104,6 @@ const StUlName = styled.ul`
   align-items: center;
 `;
 
-const StButton = styled.button`
-  border: 1px solid black;
-  width: 140px;
-  height: 160px;
-  border-radius: 20px;
-  text-align: center;
-`;
-
-//이름을 배열에 담는다.
-
-/*item style*/
-
-const StItemUl = styled.ul`
-  width: 800px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 1px solid black;
-  gap: 20px;
-`;
-
-const StItemLi = styled.li`
-  width: 560px;
-  height: 200px;
-  text-align: center;
-  border: 2px solid red;
-  border-radius: 15px;
-`;
-
-const LetterItems = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100%;
-`;
-
-const ProfileImg = styled.div`
-  width: 30%;
-`;
-
-const LetterItem = styled.div`
-  width: 70%;
-`;
-
 const AespaImg = styled.img`
   width: 150px;
   height: 200px;
@@ -154,4 +111,5 @@ const AespaImg = styled.img`
   &:hover {
     filter: grayscale(100%);
   }
+  filter: grayscale(${(props) => (props.isSelected ? "100%" : "0%")});
 `;

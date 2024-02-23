@@ -12,7 +12,7 @@
     {
       "id": "a18cf094-bd7f-414a-a93d-95aecf615742",
       "nickname": "홍길동",
-      "content": "글쓰기 테스트",
+      "content": "글쓰기 테스트ㅎㅎ",
       "createdAt": "2024년 2월 21일",
       "avatar": null,
       "writedTo": "윈터",
@@ -35,15 +35,6 @@
       "avatar": null,
       "writedTo": "카리나",
       "userId": "sample01"
-    },
-    {
-      "id": "b1228600-275e-4da5-9617-40a38d179006",
-      "nickname": "홍길동",
-      "content": "ㅎㅎㅎㅎㅎ",
-      "createdAt": "2024년 2월 24일 오전 12:34:59",
-      "avatar": "null",
-      "writedTo": "카리나",
-      "userId": "asarcsd11"
     }
   ]
 }
