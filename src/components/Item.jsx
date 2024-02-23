@@ -38,9 +38,13 @@ function Item() {
                   <LetterItems>
                     <ProfileImg>
                       <img
-                        src={null ?? proImg}
+                        src={data.avatar ?? proImg}
                         alt="프로필이미지입니다"
-                        style={{ width: "150px", borderRadius: "100px" }}
+                        style={{
+                          width: "150px",
+                          borderRadius: "100px",
+                          height: "150px",
+                        }}
                       />
                     </ProfileImg>
 

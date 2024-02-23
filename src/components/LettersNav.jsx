@@ -62,10 +62,9 @@ function LettersNav() {
       {/* Form 영역 */}
       <LetterForm />
       {/* Item 컴포넌트부분 */}
-      <div style={{ backgroundColor: "black", color: "black" }}>
-        div 간격띄우기
-      </div>
+      <OffsettingDiv />
       <Item />
+      <OffsettingDiv />
     </>
   );
 }
@@ -115,5 +114,10 @@ const AespaImg = styled.img`
 
 const AespaName = styled.span`
   color: white;
-  fontweight: bolder;
+  font-weight: bolder;
+`;
+
+const OffsettingDiv = styled.div`
+  background-color: black;
+  height: 20px;
 `;

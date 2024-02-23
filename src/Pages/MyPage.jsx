@@ -70,7 +70,7 @@ function MyPage() {
             <label>
               <input type="file" onChange={previewImg} accept="image/*" />
               <AvatarWrap>
-                <AvatarImg src={selectedImg} />
+                <AvatarImg src={selectedImg ?? proImg} />
               </AvatarWrap>
             </label>
             <br />

@@ -43,22 +43,23 @@ export const __editProfile = createAsyncThunk(
         },
       });
 
-      const editingobj = {};
+      const editingObj = {};
       const { nickname, avatar } = data;
-      if (nickname) editingobj.nickname = nickname;
-      if (avatar) editingobj.avatar = avatar;
-
+      if (nickname) editingObj.nickname = nickname;
+      if (avatar) editingObj.avatar = avatar;
+      // JSON서버에 내 팬레터들의 닉네임과 아바타 변경
       const userId = localStorage.getItem("userId");
       const { data: myLetters } = await axios.get(
-        `http://localhost:4000/letter?useId=${userId}`
+        `http://localhost:5000/letters?userId=${userId}`
       );
-      //json서버에 내 팬레터들의 닉네임과 아바타 변경
       for (const myLetter of myLetters) {
         await axios.patch(
-          `http://localhost:4000/letter${myLetters.id}`,
-          editingobj
+          `http://localhost:5000/letters/${myLetter.id}`,
+          editingObj
         );
       }
+
+      return data;
 
       return data;
     } catch (error) {
