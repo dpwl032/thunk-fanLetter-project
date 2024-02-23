@@ -1,16 +1,25 @@
 import axios from "axios";
 
-const instance = axios.create({
+const authApi = axios.create({
   baseURL: "https://moneyfulpublicpolicy.co.kr",
-  // headers: {
-  //   "Content-Type": "application/json",
-  //   Authorization: `Bearer ${accessToken}`,
-  // },
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
-instance.interceptors.request.use(
+authApi.interceptors.request.use(
   function (config) {
-    console.log("인터셉터 요청 성공!");
+    // console.log("config", config);
+    if (config === "/user") {
+      const at = localStorage.getItem("accessToken");
+      if (at) {
+        config.headers["Authorization"] = `Bearer ${at}`;
+      } else {
+        alert("인증이 필요합니다.");
+        return Promise.reject("인증이 필요합니다.");
+      }
+    }
+
     return config;
   },
   function (error) {
@@ -19,15 +28,15 @@ instance.interceptors.request.use(
   }
 );
 
-instance.interceptors.response.use(
+authApi.interceptors.response.use(
   function (response) {
     console.log("응답성공");
     return response;
   },
   function (error) {
-    console.log("응답받기 실패");
+    console.log("응답받기 실패", error);
     return Promise.reject(error);
   }
 );
 
-export default instance;
+export default authApi;

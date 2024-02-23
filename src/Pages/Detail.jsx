@@ -20,7 +20,7 @@ function Detail() {
     navigator("/login");
   }
   const dispatch = useDispatch();
-  const { auth } = useSelector((state) => state.auth);
+
   //redux
 
   const [click, setClick] = useState(false);
@@ -30,7 +30,10 @@ function Detail() {
   const params = useParams();
   const navigate = useNavigate();
 
-  const { letters } = useSelector((state) => state.letters);
+  const { letters, createdAt, content, id } = useSelector(
+    (state) => state.letters
+  );
+  const { avatar, nickname, userId } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(__getLetter());
@@ -41,7 +44,7 @@ function Detail() {
     return letter.id === params.id;
   });
 
-  const { nickname, createdAt, content, id } = foundLetter;
+  const { id: foundId } = foundLetter;
 
   const onChangeLetter = () => {
     if (!editContent) {
@@ -49,7 +52,7 @@ function Detail() {
       return;
     }
 
-    dispatch(__editLetter({ id, editContent }));
+    dispatch(__editLetter({ foundId, editContent }));
     setClick(false);
     alert("수정이 완료됐습니다.");
     navigate("/");
@@ -80,7 +83,7 @@ function Detail() {
                 autoFocus
                 type="text"
                 name="content"
-                defaultValue={content}
+                defaultValue={foundLetter.content}
                 onChange={(e) => setEditContent(e.target.value)}
               ></TextArea>
             ) : (
@@ -88,13 +91,13 @@ function Detail() {
             )}
             <hr />
             <ButtonWrap>
-              {nickname === auth.nickname ? (
+              {foundLetter.nickname === nickname ? (
                 !click ? (
                   <>
                     <DetailBtn onClick={() => setClick(true)}>
                       수정하기
                     </DetailBtn>
-                    <DetailBtn onClick={() => deleteLetter(id)}>
+                    <DetailBtn onClick={() => deleteLetter(foundLetter.id)}>
                       삭제하기
                     </DetailBtn>
                   </>

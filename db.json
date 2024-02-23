@@ -19,15 +19,6 @@
       "userId": "asarcsd11"
     },
     {
-      "id": "0322fc85-eb8c-4407-968f-901cd494011a",
-      "nickname": "홍길동",
-      "content": "1",
-      "createdAt": "2024년 2월 21일 오전 9:56:40",
-      "avatar": null,
-      "writedTo": "지젤",
-      "userId": "asarcsd11"
-    },
-    {
       "id": "e71077c1-0cb8-4be8-96da-5dd1d6bc3865",
       "nickname": "1",
       "content": "3",
@@ -37,12 +28,30 @@
       "userId": "test11dbss"
     },
     {
-      "id": "67440a88-5951-4ede-b3d7-a831fdf226a6",
+      "id": "0f1026c9-9f44-4557-b6ac-129690b8591a",
       "nickname": "홍길동",
-      "content": "작성 테스트",
-      "createdAt": "2024년 2월 21일 오후 12:50:33",
-      "avatar": null,
+      "content": "ㅋㅋㅋㅋㅋ",
+      "createdAt": "2024년 2월 23일 오후 11:42:23",
+      "avatar": "null",
       "writedTo": "카리나",
+      "userId": "asarcsd11"
+    },
+    {
+      "id": "0123dc1e-685f-4d82-b9bd-4b7c72b6b511",
+      "nickname": "홍길동",
+      "content": "ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
+      "createdAt": "2024년 2월 23일 오후 11:49:03",
+      "avatar": "null",
+      "writedTo": "지젤",
+      "userId": "asarcsd11"
+    },
+    {
+      "id": "f61b0bef-1138-4f66-8989-4354947ed4bc",
+      "nickname": "홍길동",
+      "content": "ㅋㅋㅋ",
+      "createdAt": "2024년 2월 23일 오후 11:49:38",
+      "avatar": "null",
+      "writedTo": "지젤",
       "userId": "asarcsd11"
     }
   ]

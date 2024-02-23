@@ -10,7 +10,7 @@ import { __addLetter } from "../redux/modules/lettersSlice";
 function LetterForm() {
   const dispatch = useDispatch();
   const navigator = useNavigate();
-  const { auth } = useSelector((state) => state.auth);
+  const { avatar, nickname, userId } = useSelector((state) => state.auth);
   const celebrityList = ["지젤", "카리나", "윈터", "닝닝"];
   const [writedTo, setWritedTo] = useState("지젤");
   const today = new Date();
@@ -54,13 +54,13 @@ function LetterForm() {
 
     onSubmitLetter({
       id: crypto.randomUUID(),
-      nickname: auth.nickname,
+      nickname: nickname,
       content,
       createdAt: dateString,
-      avatar: auth.avatar,
+      avatar: avatar,
       writedTo,
       createdAt: dateString,
-      userId: auth.userId,
+      userId: userId,
     });
     e.target.reset();
 
@@ -78,7 +78,7 @@ function LetterForm() {
         <InputAndBtn onSubmit={handleSubmit}>
           <InputFormSt>
             닉네임 : &nbsp;
-            {auth.nickname}
+            {nickname}
           </InputFormSt>
           <TextFormSt>
             내용 : &nbsp;

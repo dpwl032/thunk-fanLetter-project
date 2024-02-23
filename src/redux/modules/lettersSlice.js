@@ -5,7 +5,8 @@ import axios from "axios";
 //초기값
 const initialState = {
   letters: [],
-  isAdd: false,
+  isLoading: true,
+  isError: false,
   error: null,
 };
 
@@ -49,6 +50,7 @@ export const __deleteLetter = createAsyncThunk(
         //payload : id
         `http://localhost:5000/letters/${payload}`
       );
+      return thunkAPI.fulfillWithValue(deleteLetter.data);
     } catch (error) {
       console.log("팬레터 삭제하기 오류", error);
     }
@@ -85,15 +87,37 @@ const lettersSlice = createSlice({
       .addCase(__getLetter.fulfilled, (state, action) => {
         state.isLoading = false;
         state.letters = action.payload;
+        state.isError = false;
+        state.error = null;
       })
       .addCase(__addLetter.pending, (state, action) => {
         state.isLoading = true;
       })
       .addCase(__addLetter.fulfilled, (state, action) => {
         console.log("추가된편지", action.payload);
-        state.isAdd = action.payload;
+        state.isLoading = false;
+        state.letters = action.payload;
+        state.isError = false;
+        state.error = null;
       })
       .addCase(__addLetter.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.error = action.payload;
+      })
+      .addCase(__deleteLetter.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(__deleteLetter.fulfilled, (state, action) => {
+        console.log("삭제된편지", action.payload);
+        state.isLoading = false;
+        state.letters = action.payload;
+        state.isError = false;
+        state.error = null;
+      })
+      .addCase(__deleteLetter.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
         state.error = action.payload;
       });
   },

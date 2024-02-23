@@ -3,13 +3,14 @@ import styled from "styled-components";
 import LettersHeader from "components/LettersHeader";
 import { __userCheck } from "../redux/modules/authSlice";
 import { useSelector, useDispatch } from "react-redux";
+import proImg from "assets/9720037.jpg";
+
 function MyPage() {
   const [click, setClick] = useState(false);
   const [changeName, setChangeName] = useState("");
-  const { auth } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
+  const { avatar, nickname, userId } = useSelector((state) => state.auth);
 
-  console.log("auth", auth);
+  const dispatch = useDispatch();
 
   const startEdit = () => {
     setClick(!click);
@@ -17,12 +18,9 @@ function MyPage() {
 
   const changeNickname = (e) => {
     setChangeName(e.target.value);
-    console.log("밍", e.target.value);
   };
 
-  const completeName = (e) => {
-    console.log("밍", changeName);
-  };
+  const completeName = (e) => {};
   const formData = new FormData();
 
   return (
@@ -41,14 +39,25 @@ function MyPage() {
                 border: "1px solid black",
                 borderRadius: "100px",
               }}
-            ></div>
-            <p>아이디 : {auth.userId}</p>
+            >
+              <img
+                src={null ?? avatar}
+                alt="이미지가 없어요!"
+                style={{
+                  width: "200px",
+                  height: "200px",
+                  border: "1px solid black",
+                  borderRadius: "100px",
+                }}
+              />
+            </div>
+            <p>아이디 : {userId}</p>
             {!click ? (
-              <p>닉네임 : {auth.nickname}</p>
+              <p>닉네임 : {nickname}</p>
             ) : (
               <AuthInput
                 type="text"
-                defaultValue={auth.nickname}
+                defaultValue={nickname}
                 onChange={changeNickname}
               />
             )}

@@ -11,20 +11,18 @@ function Item() {
   const name = useSelector((state) => state.name);
 
   //redux thunk
-  const { letters, isLoading } = useSelector((state) => state.letters);
-  const [isRendered, setIsRendered] = useState(false);
+  const { letters } = useSelector((state) => state.letters);
+
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(__getLetter());
-  }, [dispatch]);
 
   const filteredLetters = letters.filter((data) => {
     return data.writedTo == name;
   });
 
-  if (isLoading) {
-    return <div>로딩중입니다...</div>;
-  }
+  useEffect(() => {
+    // getLetters
+    dispatch(__getLetter());
+  }, [dispatch]);
 
   return (
     <>

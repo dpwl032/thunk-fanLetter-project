@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { __loginUser } from "../redux/modules/authSlice";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import authApi from "letterAxios/api";
 
 function Login() {
   const [click, setClick] = useState(false);
@@ -64,7 +64,7 @@ function Login() {
     //회원가입 내용 DB에 저장
 
     try {
-      await axios.post("https://moneyfulpublicpolicy.co.kr/register", {
+      await authApi.post("/register", {
         id,
         password,
         nickname,
