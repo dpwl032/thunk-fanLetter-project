@@ -10,14 +10,20 @@ const initialState = {
   error: null,
 };
 
+//갱신코드 ⭐⭐⭐⭐
+const getLettersFromDB = async () => {
+  const { data } = await axios.get(
+    "http://localhost:5000/letters?_sort=-createdAt"
+  );
+  return data;
+};
+
 export const __getLetter = createAsyncThunk(
   "getLETTER",
   async (payload, thunkAPI) => {
     try {
-      const allLetter = await axios.get(
-        "http://localhost:5000/letters?_sort=-createdAt"
-      );
-      return thunkAPI.fulfillWithValue(allLetter.data);
+      const letters = await getLettersFromDB();
+      return letters;
     } catch (error) {
       console.log("팬레터 가져오기 오류", error);
       return thunkAPI.rejectWithValue(error);
@@ -30,11 +36,9 @@ export const __addLetter = createAsyncThunk(
   async (payload, thunkAPI) => {
     //payload : new letter
     try {
-      const newLetter = await axios.post(
-        "http://localhost:5000/letters",
-        payload
-      );
-      return thunkAPI.fulfillWithValue(newLetter.data);
+      await axios.post("http://localhost:5000/letters", payload);
+      const letters = await getLettersFromDB();
+      return letters;
     } catch (error) {
       console.log("팬레터 추가하기 오류", error);
       return thunkAPI.rejectWithValue(error);
@@ -46,11 +50,12 @@ export const __deleteLetter = createAsyncThunk(
   "deleteLETTER",
   async (payload, thunkAPI) => {
     try {
-      const deleteLetter = await axios.delete(
+      await axios.delete(
         //payload : id
         `http://localhost:5000/letters/${payload}`
       );
-      return thunkAPI.fulfillWithValue(deleteLetter.data);
+      const letters = getLettersFromDB();
+      return letters;
     } catch (error) {
       console.log("팬레터 삭제하기 오류", error);
     }
@@ -65,10 +70,11 @@ export const __editLetter = createAsyncThunk(
       console.log("payload", payload);
       const { id, editContent } = payload;
 
-      const editLetter = await axios.patch(
-        `http://localhost:5000/letters/${id}`,
-        { content: editContent }
-      );
+      await axios.patch(`http://localhost:5000/letters/${id}`, {
+        content: editContent,
+      });
+      const letters = getLettersFromDB();
+      return letters;
     } catch (error) {
       console.log("팬레터 수정하기 오류", error);
     }

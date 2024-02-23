@@ -35,24 +35,6 @@
       "avatar": "null",
       "writedTo": "카리나",
       "userId": "asarcsd11"
-    },
-    {
-      "id": "0123dc1e-685f-4d82-b9bd-4b7c72b6b511",
-      "nickname": "홍길동",
-      "content": "ㅋㅋㅋㅋㅋㅋㅋㅋㅋ",
-      "createdAt": "2024년 2월 23일 오후 11:49:03",
-      "avatar": "null",
-      "writedTo": "지젤",
-      "userId": "asarcsd11"
-    },
-    {
-      "id": "f61b0bef-1138-4f66-8989-4354947ed4bc",
-      "nickname": "홍길동",
-      "content": "ㅋㅋㅋ",
-      "createdAt": "2024년 2월 23일 오후 11:49:38",
-      "avatar": "null",
-      "writedTo": "지젤",
-      "userId": "asarcsd11"
     }
   ]
 }
